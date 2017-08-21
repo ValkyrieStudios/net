@@ -1,0 +1,21 @@
+{
+  "name": "@valkyriestudios/net",
+  "version": "1.0.0",
+  "description": "A lightweight promise-based XHR module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ValkyrieStudios/net.git"
+  },
+  "author": "Valkyrie Studios <contact@valkyriestudios.be>",
+  "bugs": {
+    "url": "https://github.com/ValkyrieStudios/net/issues"
+  },
+  "homepage": "https://github.com/ValkyrieStudios/net#readme",
+  "dependencies": {
+    "@valkyriestudios/utils": "latest"
+  }
+}
