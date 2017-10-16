@@ -32,12 +32,14 @@ import { setRequestUrl } from './functions/url';
 
     //  NET Library configuration
     const NET_CONFIG = Object.seal({
+        base            : false,
+        headers         : false,
+        method          : false,
         onProgress      : false,
+        params          : false,
+        responseType    : false,
         timeout         : false,
         withCredentials : false,
-        headers         : false,
-        base            : false,
-        params          : false,
     });
 
     //  Parses the response to a request and returns an object of form {status, statusText, data, headers}
@@ -48,7 +50,7 @@ import { setRequestUrl } from './functions/url';
         const headers = getResponseHeaders(req);
 
         //  Based on responseType in options, define what to return
-        let data = (options.responseType || '') === 'text'
+        let data = (options.responseType || NET_CONFIG.responseType || '') === 'text'
             ? req.responseText
             : req.response;
 

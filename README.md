@@ -43,9 +43,34 @@ Performs an xhr call to the passed url with the options as an optional configura
 ## Options
 The possible options that can be passed are
 
+- **base**<br> (default: false)
+Sets a base url to use as a prefix for each endpoint
+for example:
+```
+NET.configure({ base : 'https://myhappyapi.net' });
+NET.get('/user/identity') // would make a call to https://myhappyapi.net/user/identity
+```
+
 - **headers**<br> (default: {})
-Sets the headers to be used in the xhr call.
+Sets the headers to be used in the xhr call. These will be merged with any header already configured through NET.configure
 for example: `{'Authentication':'Bearer...'}`
+
+- **method**<br> (default: false)
+Sets the method to be used by the xhr call
+
+- **onProgress**<br> (default: false)
+Sets a callback function to be executed every time a ProgressEvent is fired
+for example: `(evt) => console.log('uploaded :', (evt.loaded/evt.total)*100, '%')`
+
+- **params**<br> (default: false)
+Sets the query string parameters for a specific request
+for example: 
+```
+NET.get('/user/identity', { params : {a: 1, b: 2}}); // would become : /user/identity?a=1&b=2
+```
+
+- **responseType**<br> (default: false)
+If responsetype is set to 'text' it will use the responseText, otherwise it will use the response of the xhr call
 
 - **timeout**<br> (default: 10000)
 Sets the timeout in ms to be used for the xhr call
@@ -53,11 +78,6 @@ Sets the timeout in ms to be used for the xhr call
 - **withCredentials**<br> (default: false)
 Sets the withCredentials property of the xhr call
 
-- **method**<br> (default: false)
-Sets the method to be used by the xhr call
-
-- **responseType**<br> (default: false)
-If responsetype is set to 'text' it will use the responseText, otherwise it will use the response of the xhr call
 
 ## Response :
 The response object has the following keys
@@ -72,7 +92,7 @@ The headers that were found on the response
 The status code of the response
 
 - **statusText**<br>
-The text of the status (f.ex : 404 --> Not Found)
+The text of the status (f.ex : 404 Not Found)
 
 ## Configuration options
 The following options can be globally configured on the Net instance
