@@ -94,14 +94,5 @@ The status code of the response
 - **statusText**<br>
 The text of the status (f.ex : 404 Not Found)
 
-## Configuration options
-The following options can be globally configured on the Net instance
-
-- **timeout**<br>
-A timeout in ms to wait before timing out the xhr call and rejecting the promise. (default: 10000ms)
-
-- **withCredentials**<br>
-Configures the withCredentials property of an XHR call. (default: false)
-
 ## Contributors
 - Peter Vermeulen : [Valkyrie Studios](www.valkyriestudios.be)
