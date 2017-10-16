@@ -1,140 +1,156 @@
-import {noop} from '@valkyriestudios/utils/function';
-import {isObject} from '@valkyriestudios/utils/object';
+'use strict';
+
+import { noop } from '@valkyriestudios/utils/function';
+import { isObject } from '@valkyriestudios/utils/object';
 
 import { setRequestWithCredentials } from './functions/withCredentials';
-import { setRequestTimeout } from './functions/timeout';
+import { setRequestListeners } from './functions/listeners';
 import { setRequestHeaders, getResponseHeaders } from './functions/headers';
+import { setRequestUrl } from './functions/url';
 
-const METHOD = Object.freeze({
-    GET             : 'Get',
-    PUT             : 'Put',
-    PATCH           : 'Patch',
-    POST            : 'Post',
-    DELETE          : 'Delete',
-    HEAD            : 'Head',
-    OPTIONS         : 'Options',
-});
+//
+//  PRIVATE
+//
 
-const METHODS_ALLOWED_DATA = Object.freeze({
-    METHOD.PUT      : true,
-    METHOD.POST     : true,
-    METHOD.PATCH    : true,
-});
+    //  VERBS
+    const METHOD = Object.freeze({
+        GET             : 'Get',
+        PUT             : 'Put',
+        PATCH           : 'Patch',
+        POST            : 'Post',
+        DELETE          : 'Delete',
+        HEAD            : 'Head',
+        OPTIONS         : 'Options',
+    });
 
-const NET_CONFIG = Object.seal({
-    timeout         : false,
-    withCredentials : false,
-    headers         : false,
-});
+    //  VERBS Allowed to send data in body
+    const METHODS_ALLOWED_BODY = Object.freeze({
+        METHOD.PUT      : true,
+        METHOD.POST     : true,
+        METHOD.PATCH    : true,
+    });
 
-function _response (req, options) {
-    const { status, statusText } = req;
+    //  NET Library configuration
+    const NET_CONFIG = Object.seal({
+        onProgress      : false,
+        timeout         : false,
+        withCredentials : false,
+        headers         : false,
+        base            : false,
+        params          : false,
+    });
 
-    //  Retrieve headers
-    const headers = getResponseHeaders(req);
+    //  Parses the response to a request and returns an object of form {status, statusText, data, headers}
+    function _response (req, options) {
+        const { status, statusText } = req;
 
-    //  Based on responseType in options, define what to return
-    let data = (options.responseType || '') === 'text'
-        ? req.responseText
-        : req.response;
+        //  Retrieve headers
+        const headers = getResponseHeaders(req);
 
-    //  Transform data based on content-type
-    if (headers['content-type'].indexOf('application/json') > -1) {
-        data = JSON.parse(data);
+        //  Based on responseType in options, define what to return
+        let data = (options.responseType || '') === 'text'
+            ? req.responseText
+            : req.response;
+
+        //  Transform data based on content-type
+        if (headers['content-type'].indexOf('application/json') > -1) {
+            data = JSON.parse(data);
+        }
+
+        //  Return object
+        return Object.seal({status, statusText, data, headers});
     }
 
-    //  Return object
-    return Object.seal({status, statusText, data, headers});
-}
+    //  Creates an xhr request to the provided url and applies the configured options to it
+    function _request (url, options) {
+        return new Promise(function (resolve, reject) {
+            //  Create a new request object
+            const req = new XMLHttpRequest();
 
-function _request (url, options) {
-    return new Promise(function (resolve, reject) {
-        //  Create a new request object
-        const req = new XMLHttpRequest();
-        req.open(options.method, url, true);
+            //  Set final endpoint for request
+            setRequestUrl(req, options, NET_CONFIG, resolve, reject);
 
-        //  Error handler for XMLHttpRequest
-        req.onerror = (err) => reject(err);
+            //  Apply configurable listeners to the request
+            setRequestListeners(req, options, NET_CONFIG, resolve, reject);
 
-        // Reject on abort
-        req.onabort = (err) => reject(err);
+            //  Apply with credentials
+            setRequestWithCredentials(req, options, NET_CONFIG, resolve, reject);
 
-        //  Triggered when the state of the XMLHttpRequest changes
-        req.onreadystatechange = () => {
-            if (req.readyState !== 4) return;
-            if (req.status === 0 && !((req.responseURL || '').indexOf('file:') === 0)) return;
+            //  Set headers
+            setRequestHeaders(req, options, NET_CONFIG, resolve, reject);
 
-            resolve(_response(req, options));
-        };
+            //  Triggered when the state of the XMLHttpRequest changes
+            req.onreadystatechange = () => {
+                if (req.readyState !== 4) return;
+                if (req.status === 0 && !((req.responseURL || '').indexOf('file:') === 0)) return;
 
-        //  Apply configurable options to the request
-        setRequestWithCredentials(req, options, NET_CONFIG, resolve, reject);
-        setRequestTimeout(req, options, NET_CONFIG, resolve, reject);
-        setRequestHeaders(req, options, NET_CONFIG, resolve, reject);
+                resolve(_response(req, options));
+            };
 
-        //  Send request
-        if (options.data && METHODS_ALLOWED_DATA[options.method.toUpperCase()]) {
-            req.send(options.data);
-        } else {
-            if (options.data) {
-                throw new TypeError('Net : Please only provide body data to put, post and patch methods');
-            }
-            req.send();
-        }
-    });
-}
-
-export default class Net {
-    static configure = (options = {}) => {
-        if (!isObject(options)) throw new TypeError('Net:configure expects an Object');
-
-        Object.keys(options).forEach((key) => {
-            if (NET_CONFIG.hasOwnProperty(key)) {
-                NET_CONFIG[key] = options[key];
+            //  Send request
+            if (config.data && METHODS_ALLOWED_BODY[options.method.toUpperCase()]) {
+                req.send(config.data);
+            } else {
+                req.send();
             }
         });
-    };
-
-    static get = (url, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.GET }, options));
     }
 
-    static post = (url, data, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.POST }, options, { data }));
+//
+//  EXPORTS
+//
+
+    export default class Net {
+        static configure = (options = {}) => {
+            if (!isObject(options)) throw new TypeError('Net:configure expects an Object');
+
+            Object.keys(options).forEach((key) => {
+                if (NET_CONFIG.hasOwnProperty(key)) {
+                    NET_CONFIG[key] = options[key];
+                }
+            });
+        };
+
+        static get = (url, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.GET }, options));
+        }
+
+        static post = (url, data, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.POST }, options, { data }));
+        }
+
+        static put = (url, data, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.PUT }, options, { data }));
+        }
+
+        static put = (url, data, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.PATCH }, options, { data }));
+        }
+
+        static delete = (url, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.DELETE }, options));
+        }
+
+        static head = (url, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.HEAD }, options));
+        }
+
+        static options = (url, options = {}) => {
+            return _request(url, Object.assign({ method: METHOD.OPTIONS }, options));
+        }
+
+        static request (url, options = {}) {
+            //  Normalize method
+            const method = `${options.method.slice(0, 1).toUpperCase()}${options.method.slice(1)}`;
+
+            return ({
+                [METHOD.GET]        : Net.get,
+                [METHOD.POST]       : Net.post,
+                [METHOD.PUT]        : Net.put,
+                [METHOD.PATCH]      : Net.patch,
+                [METHOD.DELETE]     : Net.delete,
+                [METHOD.HEAD]       : Net.head,
+                [METHOD.OPTIONS]    : Net.options,
+            }[method] || noop)(url, options);
+        };
     }
-
-    static put = (url, data, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.PUT }, options, { data }));
-    }
-
-    static put = (url, data, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.PATCH }, options, { data }));
-    }
-
-    static delete = (url, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.DELETE }, options));
-    }
-
-    static head = (url, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.HEAD }, options));
-    }
-
-    static options = (url, options = {}) => {
-        return _request(url, Object.assign({ method: METHOD.OPTIONS }, options));
-    }
-
-    static request (url, options = {}) {
-        //  Normalize method
-        const method = `${options.method.slice(0, 1).toUpperCase()}${options.method.slice(1)}`;
-
-        return ({
-            [METHOD.GET]        : Net.get,
-            [METHOD.POST]       : Net.post,
-            [METHOD.PUT]        : Net.put,
-            [METHOD.PATCH]      : Net.patch,
-            [METHOD.DELETE]     : Net.delete,
-            [METHOD.HEAD]       : Net.head,
-            [METHOD.OPTIONS]    : Net.options,
-        }[method] || noop)(url, options);
-    };
-}

@@ -17,5 +17,6 @@
   "homepage": "https://github.com/ValkyrieStudios/net#readme",
   "dependencies": {
     "@valkyriestudios/utils": "latest"
-  }
+  },
+  "devDependencies": {}
 }
