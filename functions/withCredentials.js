@@ -5,7 +5,7 @@
 //
 
     //  Set the with credentials property on our request based on what is being passed
-    export function setWithCredentials (req, options, NET_CONFIG, resolve, reject) {
+    export function setRequestWithCredentials (req, options, NET_CONFIG, resolve, reject) {
         const withCredentials = options.hasOwnProperty('withCredentials')
             ? options.withCredentials
             : NET_CONFIG.withCredentials;
