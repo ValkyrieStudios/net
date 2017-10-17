@@ -1,6 +1,6 @@
 {
   "name": "@valkyriestudios/net",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A lightweight promise-based XHR module",
   "main": "index.js",
   "scripts": {
