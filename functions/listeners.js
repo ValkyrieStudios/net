@@ -37,8 +37,8 @@ import { isFunction } from '@valkyriestudios/utils/function';
             ? options.onprogress
             : NET_CONFIG.onprogress;
 
-        if (!config.onProgress) return;
-        if (!isFunction(config.onProgress)) throw new TypeError('Net:setProgressListener expects onProgress to be a function');
+        if (!options.onProgress) return;
+        if (!isFunction(options.onProgress)) throw new TypeError('Net:setProgressListener expects onProgress to be a function');
 
         req.onprogress = progressHandler;
     }

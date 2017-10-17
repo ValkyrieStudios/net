@@ -30,7 +30,7 @@ import { isArray } from '@valkyriestudios/utils/array';
 
     //  Retrieve headers from the response to a request, the returned value is an object key-pair value
     export function getResponseHeaders (req) {
-        return = req.getAllResponseHeaders().split('\n').reduce((acc, header) => {
+        return req.getAllResponseHeaders().split('\n').reduce((acc, header) => {
             header = header.split(':') || [];
 
             if (header.length === 0) return acc;

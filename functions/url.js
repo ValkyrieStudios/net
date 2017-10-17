@@ -52,7 +52,7 @@ import { isString } from '@valkyriestudios/utils/string';
             url = `${url}?${serializeQueryParameters(params)}`;
         }
 
-        if (!options.method || !NET_CONFIG.method) throw new TypeError('NET:setRequestUrl requires an HTTP verb to be set as method');
+        if (!options.method && !NET_CONFIG.method) throw new TypeError('NET:setRequestUrl requires an HTTP verb to be set as method');
 
         //  Open request to url
         req.open(options.method || NET_CONFIG.method, url, true);
