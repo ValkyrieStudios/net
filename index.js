@@ -2,6 +2,7 @@
 
 import { noop } from '@valkyriestudios/utils/function';
 import { isObject } from '@valkyriestudios/utils/object';
+import { isArray } from '@valkyriestudios/utils/array';
 
 import { setRequestWithCredentials } from './functions/withCredentials';
 import { setRequestListeners } from './functions/listeners';
@@ -64,8 +65,10 @@ import { setRequestUrl } from './functions/url';
     }
 
     //  Creates an xhr request to the provided url and applies the configured options to it
-    function _request (url, options) {
+    function _request (options) {
         return new Promise(function (resolve, reject) {
+            console.log(options);
+
             //  Create a new request object
             const req = new XMLHttpRequest();
 
@@ -90,8 +93,8 @@ import { setRequestUrl } from './functions/url';
             };
 
             //  Send request
-            if (options.data && METHODS_ALLOWED_BODY[options.method.toUpperCase()]) {
-                req.send(options.data);
+            if (options.data && METHODS_ALLOWED_BODY[options.method]) {
+                req.send((isObject(options.data) || isArray(options.data)) ? JSON.stringify(options.data) : options.data);
             } else {
                 req.send();
             }
@@ -114,31 +117,31 @@ import { setRequestUrl } from './functions/url';
         };
 
         static get = (url, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.GET }, options));
+            return _request(Object.assign({ url, method: METHOD.GET }, options));
         }
 
         static post = (url, data, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.POST }, options, { data }));
+            return _request(Object.assign({ url, method: METHOD.POST }, options, { data }));
         }
 
         static put = (url, data, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.PUT }, options, { data }));
+            return _request(Object.assign({ url, method: METHOD.PUT }, options, { data }));
         }
 
-        static put = (url, data, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.PATCH }, options, { data }));
+        static patch = (url, data, options = {}) => {
+            return _request(Object.assign({ url, method: METHOD.PATCH }, options, { data }));
         }
 
         static delete = (url, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.DELETE }, options));
+            return _request(Object.assign({ url, method: METHOD.DELETE }, options));
         }
 
         static head = (url, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.HEAD }, options));
+            return _request(Object.assign({ url, method: METHOD.HEAD }, options));
         }
 
         static options = (url, options = {}) => {
-            return _request(url, Object.assign({ method: METHOD.OPTIONS }, options));
+            return _request(Object.assign({ url, method: METHOD.OPTIONS }, options));
         }
 
         static request (url, options = {}) {

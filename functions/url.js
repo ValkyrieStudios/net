@@ -13,7 +13,7 @@ import { isString } from '@valkyriestudios/utils/string';
     function serializeQueryParameters (params) {
         let query = params;
 
-        if (!isObject(params) || !isString(params) || isArray(params)) {
+        if ((!isObject(params) && !isString(params)) || isArray(params)) {
             throw new TypeError('Net:setRequestUrl expects params option to be either a string or an object');
         }
 
