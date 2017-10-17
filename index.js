@@ -25,9 +25,9 @@ import { setRequestUrl } from './functions/url';
 
     //  VERBS Allowed to send data in body
     const METHODS_ALLOWED_BODY = Object.freeze({
-        METHOD.PUT      : true,
-        METHOD.POST     : true,
-        METHOD.PATCH    : true,
+        [METHOD.PUT]    : true,
+        [METHOD.POST]   : true,
+        [METHOD.PATCH]  : true,
     });
 
     //  NET Library configuration
