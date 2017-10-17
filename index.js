@@ -90,8 +90,8 @@ import { setRequestUrl } from './functions/url';
             };
 
             //  Send request
-            if (config.data && METHODS_ALLOWED_BODY[options.method.toUpperCase()]) {
-                req.send(config.data);
+            if (options.data && METHODS_ALLOWED_BODY[options.method.toUpperCase()]) {
+                req.send(options.data);
             } else {
                 req.send();
             }
