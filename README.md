@@ -69,9 +69,6 @@ for example:
 NET.get('/user/identity', { params : {a: 1, b: 2}}); // would become : /user/identity?a=1&b=2
 ```
 
-- **responseType**<br> (default: false)
-If responsetype is set to 'text' it will use the responseText, otherwise it will use the response of the xhr call
-
 - **timeout**<br> (default: 10000)
 Sets the timeout in ms to be used for the xhr call
 

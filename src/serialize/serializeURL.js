@@ -14,7 +14,7 @@ import { isString } from '@valkyriestudios/utils/string';
         let query = params;
 
         if ((!isObject(params) && !isString(params)) || isArray(params)) {
-            throw new TypeError('Net:setRequestUrl expects params option to be either a string or an object');
+            throw new TypeError('Net:serializeURL expects params option to be either a string or an object');
         }
 
         if (isObject(params)) {
@@ -31,29 +31,24 @@ import { isString } from '@valkyriestudios/utils/string';
 //  EXPORTS
 //
 
-    //  Opens the request to the specific url and applies any params options that
-    //  were provided
-    export function setRequestUrl (req, options, NET_CONFIG, resolve, reject) {
+    export default function serializeURL (url, options, NET_CONFIG) {
         //  Check for possibly configured querystring parameters
         let params = Object.prototype.hasOwnProperty.call(options, 'params')
             ? options.params
             : NET_CONFIG.params;
 
         //  Check for possibly configured base domain (e.g: https://www.google.com)
-        const domain = Object.prototype.hasOwnProperty.call(options, 'domain')
+        const base = Object.prototype.hasOwnProperty.call(options, 'base')
             ? options.base
             : NET_CONFIG.base;
 
         //  Build base url
-        let url = `${domain ? domain : ''}${options.url}`;
+        let serialized_url = `${base ? base : ''}${url}`;
 
         //  Add possible query string parameters to url
         if (params) {
-            url = `${url}?${serializeQueryParameters(params)}`;
+            serialized_url = `${serialized_url}?${serializeQueryParameters(params)}`;
         }
 
-        if (!options.method && !NET_CONFIG.method) throw new TypeError('NET:setRequestUrl requires an HTTP verb to be set as method');
-
-        //  Open request to url
-        req.open(options.method || NET_CONFIG.method, url, true);
+        return serialized_url;
     }
