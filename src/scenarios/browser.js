@@ -26,7 +26,7 @@ function getResponseHeaders (req) {
 export default class BrowserScenario extends Scenario {
     //  Creates an xhr request to the provided url and applies the configured options to it
     static run (options) {
-        return super.run((resolve, reject) => {
+        return super.run(options, (resolve, reject) => {
             //  Create a new request object
             const req = new XMLHttpRequest();
 

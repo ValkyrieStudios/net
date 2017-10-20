@@ -63,7 +63,7 @@ var NodeScenario = function (_Scenario) {
     _createClass(NodeScenario, null, [{
         key: 'run',
         value: function run(options) {
-            return _get(NodeScenario.__proto__ || Object.getPrototypeOf(NodeScenario), 'run', this).call(this, function (resolve, reject) {
+            return _get(NodeScenario.__proto__ || Object.getPrototypeOf(NodeScenario), 'run', this).call(this, options, function (resolve, reject) {
                 var aborted = !1;
                 var timer = !1;
 

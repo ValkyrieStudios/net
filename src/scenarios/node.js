@@ -14,7 +14,7 @@ import zlib from 'zlib';
 //  Creates a request to the provided url and applies the configured options to it
 export default class NodeScenario extends Scenario {
     static run (options) {
-        return super.run((resolve, reject) => {
+        return super.run(options, (resolve, reject) => {
             let aborted = false;
             let timer = false;
 

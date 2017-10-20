@@ -57,7 +57,7 @@ var BrowserScenario = function (_Scenario) {
 
         //  Creates an xhr request to the provided url and applies the configured options to it
         value: function run(options) {
-            return _get(BrowserScenario.__proto__ || Object.getPrototypeOf(BrowserScenario), 'run', this).call(this, function (resolve, reject) {
+            return _get(BrowserScenario.__proto__ || Object.getPrototypeOf(BrowserScenario), 'run', this).call(this, options, function (resolve, reject) {
                 //  Create a new request object
                 var req = new XMLHttpRequest();
 
