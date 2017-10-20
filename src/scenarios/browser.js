@@ -1,6 +1,7 @@
 import { isObject } from '@valkyriestudios/utils/object';
 import { isArray } from '@valkyriestudios/utils/array';
-
+import Scenario from '../blueprints/Scenario';
+import Response from '../blueprints/Scenario';
 import { METHODS_ALLOWED_BODY } from '../constants';
 
 function getResponseHeaders (req) {
@@ -22,27 +23,10 @@ function getResponseHeaders (req) {
     }, {});
 }
 
-//  Parses the response to a request and returns an object of form {status, statusText, data, headers}
-function _response (req, options) {
-    const { status, statusText } = req;
-
-    //  Retrieve headers
-    const headers = getResponseHeaders(req);
-    let data = req.response;
-
-    //  Transform data based on content-type
-    if (headers['content-type'].indexOf('application/json') > -1) {
-        data = JSON.parse(data);
-    }
-
-    //  Return object
-    return Object.seal({status, statusText, data, headers});
-}
-
-export default class BrowserScenario {
+export default class BrowserScenario extends Scenario {
     //  Creates an xhr request to the provided url and applies the configured options to it
     static run (options) {
-        return new Promise(function (resolve, reject) {
+        return super.run((resolve, reject) => {
             //  Create a new request object
             const req = new XMLHttpRequest();
 
@@ -75,7 +59,9 @@ export default class BrowserScenario {
                 if (req.readyState !== 4) return;
                 if (req.status === 0 && !((req.responseURL || '').indexOf('file:') === 0)) return;
 
-                resolve(_response(req, options));
+                const { status, statusText } = req;
+
+                resolve(new Response(status, statusText, req.response, getResponseHeaders(req), options));
             };
 
             //  Send request
