@@ -101,7 +101,7 @@ var Net = function () {
 }();
 
 Net.version = function () {
-    return '1.2.6';
+    return '1.3.1';
 };
 
 Net.configure = function () {

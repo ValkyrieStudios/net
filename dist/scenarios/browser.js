@@ -16,6 +16,10 @@ var _Scenario2 = require('../blueprints/Scenario');
 
 var _Scenario3 = _interopRequireDefault(_Scenario2);
 
+var _Response = require('../blueprints/Response');
+
+var _Response2 = _interopRequireDefault(_Response);
+
 var _constants = require('../constants');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -102,7 +106,7 @@ var BrowserScenario = function (_Scenario) {
                         statusText = req.statusText;
 
 
-                    resolve(new _Scenario3.default(status, statusText, req.response, getResponseHeaders(req)));
+                    resolve(new _Response2.default(status, statusText, req.response, getResponseHeaders(req)));
                 };
 
                 //  Send request

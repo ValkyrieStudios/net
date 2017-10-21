@@ -1,14 +1,12 @@
 'use strict';
 
+//  Parses the response to a request and returns an object of form {status, data, headers, options}
+
 Object.defineProperty(exports, "__esModule", {
     value: !0
 });
 
-var _object = require('@valkyriestudios/utils/object');
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-//  Parses the response to a request and returns an object of form {status, data, headers, options}
 
 var Response = function Response(code) {
     var msg = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
