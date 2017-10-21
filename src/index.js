@@ -48,6 +48,9 @@ import serializeMethod from './serialize/serializeMethod';
 //
 
     export default class Net {
+
+        static version = () => '__NET_VERSION__';
+
         static configure = (options = {}) => {
             if (!isObject(options)) throw new TypeError('Net:configure expects an Object');
 

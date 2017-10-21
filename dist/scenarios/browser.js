@@ -102,7 +102,7 @@ var BrowserScenario = function (_Scenario) {
                         statusText = req.statusText;
 
 
-                    resolve(new _Scenario3.default(status, statusText, req.response, getResponseHeaders(req), options));
+                    resolve(new _Scenario3.default(status, statusText, req.response, getResponseHeaders(req)));
                 };
 
                 //  Send request

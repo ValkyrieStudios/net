@@ -126,7 +126,7 @@ var NodeScenario = function (_Scenario) {
                             headers = _res.headers,
                             statusMessage = _res.statusMessage;
 
-                        resolve(new _Response2.default(statusCode, statusMessage, data.join(''), headers, options));
+                        resolve(new _Response2.default(statusCode, statusMessage, data.join(''), headers));
                     });
                 });
 

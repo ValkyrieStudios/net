@@ -10,7 +10,6 @@ import https from 'https';
 import url from 'url';
 import zlib from 'zlib';
 
-
 //  Creates a request to the provided url and applies the configured options to it
 export default class NodeScenario extends Scenario {
     static run (options) {
@@ -74,7 +73,7 @@ export default class NodeScenario extends Scenario {
                 //  End of response
                 res.on('end', () => {
                     const { statusCode, headers, statusMessage } = res;
-                    resolve(new Response(statusCode, statusMessage, data.join(''), headers, options));
+                    resolve(new Response(statusCode, statusMessage, data.join(''), headers));
                 });
             });
 

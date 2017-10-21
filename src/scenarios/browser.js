@@ -61,7 +61,7 @@ export default class BrowserScenario extends Scenario {
 
                 const { status, statusText } = req;
 
-                resolve(new Response(status, statusText, req.response, getResponseHeaders(req), options));
+                resolve(new Response(status, statusText, req.response, getResponseHeaders(req)));
             };
 
             //  Send request

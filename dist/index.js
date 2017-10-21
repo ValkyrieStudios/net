@@ -100,6 +100,10 @@ var Net = function () {
     return Net;
 }();
 
+Net.version = function () {
+    return '1.2.6';
+};
+
 Net.configure = function () {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
