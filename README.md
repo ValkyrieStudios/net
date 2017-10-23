@@ -56,14 +56,20 @@ NET.get('/user/identity') // would make a call to https://myhappyapi.net/user/id
 
 - **headers**<br> (default: {})
 Sets the headers to be used in the xhr call. These will be merged with any header already configured through NET.configure
-for example: `{'Authentication':'Bearer...'}`
+for example: 
+```
+{'Authentication':'Bearer...'}
+```
 
 - **method**<br> (default: false)
 Sets the method to be used by the xhr call
 
 - **onProgress**<br> (default: false)
 Sets a callback function to be executed every time a ProgressEvent is fired
-for example: `(evt) => console.log('uploaded :', (evt.loaded/evt.total)*100, '%')`
+for example: 
+```
+(evt) => console.log('uploaded :', (evt.loaded/evt.total)*100, '%')
+```
 
 - **params**<br> (default: false)
 Sets the query string parameters for a specific request
@@ -89,10 +95,7 @@ The data that the call responded with
 The headers that were found on the response
 
 - **status**<br>
-The status code of the response
-
-- **statusText**<br>
-The text of the status (f.ex : 404 Not Found)
+An object containing the status of a network call. Contains the code and statusmessage
 
 ## Contributors
 - Peter Vermeulen : [Valkyrie Studios](www.valkyriestudios.be)
