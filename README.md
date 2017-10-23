@@ -1,6 +1,6 @@
 ## @valkyriestudios/net
 
-A lightweight promise-based XHR module
+A lightweight promise-based network module.
 
 `npm install @valkyriestudios/net`
 
