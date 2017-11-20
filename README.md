@@ -25,13 +25,13 @@ Configures global options for the Net class, any subsequent XHR call done throug
 ### Net.get(url, options={})
 Performs a GET xhr call to the passed url with the options as an optional configuration
 
-### Net.post(url, options={})
+### Net.post(url, data, options={})
 Performs a POST xhr call to the passed url with the options as an optional configuration
 
 ### Net.delete(url, options={})
 Performs a DELETE xhr call to the passed url with the options as an optional configuration
 
-### Net.put(url, options={})
+### Net.put(url, data, options={})
 Performs a PUT xhr call to the passed url with the options as an optional configuration
 
 ### Net.options(url, options={})
