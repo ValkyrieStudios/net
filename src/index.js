@@ -27,10 +27,18 @@ import serializeMethod from './serialize/serializeMethod';
         withCredentials : false,
     });
 
-    const Scenario = typeof window !== 'undefined' && ({}).toString.call(window) === '[object Window]'
-        ? require('./scenarios/browser').default
-        : require('./scenarios/node').default;
+    //  Determine the scenario to run in
+    let scenario = null;
 
+    if (typeof window !== 'undefined' && ({}).toString().call(window) === '[object Window]') {
+        require('./scenarios/browser').default;
+    } else if (typeof process !== 'undefined' && (process.versions || {}).electron) {
+        require('./scenarios/browser').default;
+    } else {
+        require('./scenarios/node').default;
+    }
+
+    //  Serialize call parameters into an understandable format for every scenario
     function serialize (url, method, options = {}, data = false) {
         return Object.seal({
             url                 : serializeURL(url, options, NET_CONFIG),

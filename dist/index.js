@@ -57,8 +57,18 @@ var NET_CONFIG = Object.seal({
     withCredentials: !1
 });
 
-var Scenario = typeof window !== 'undefined' && {}.toString.call(window) === '[object Window]' ? require('./scenarios/browser').default : require('./scenarios/node').default;
+//  Determine the scenario to run in
+var scenario = null;
 
+if (typeof window !== 'undefined' && {}.toString().call(window) === '[object Window]') {
+    require('./scenarios/browser').default;
+} else if (typeof process !== 'undefined' && (process.versions || {}).electron) {
+    require('./scenarios/browser').default;
+} else {
+    require('./scenarios/node').default;
+}
+
+//  Serialize call parameters into an understandable format for every scenario
 function serialize(url, method) {
     var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
     var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : !1;
@@ -101,7 +111,7 @@ var Net = function () {
 }();
 
 Net.version = function () {
-    return '1.3.1';
+    return '1.3.3';
 };
 
 Net.configure = function () {
