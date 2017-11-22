@@ -28,14 +28,14 @@ import serializeMethod from './serialize/serializeMethod';
     });
 
     //  Determine the scenario to run in
-    let scenario = null;
+    let Scenario = null;
 
-    if (typeof window !== 'undefined' && ({}).toString().call(window) === '[object Window]') {
-        require('./scenarios/browser').default;
+    if (typeof window !== 'undefined') {
+        Scenario = require('./scenarios/browser').default;
     } else if (typeof process !== 'undefined' && (process.versions || {}).electron) {
-        require('./scenarios/browser').default;
+        Scenario = require('./scenarios/browser').default;
     } else {
-        require('./scenarios/node').default;
+        Scenario = require('./scenarios/node').default;
     }
 
     //  Serialize call parameters into an understandable format for every scenario
