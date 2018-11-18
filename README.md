@@ -84,6 +84,9 @@ Sets the timeout in ms to be used for the xhr call
 - **withCredentials**<br> (default: false)
 Sets the withCredentials property of the xhr call
 
+- **responseType**<br> (default:'')
+Sets the response type to be used for the xhr call (**will only be applied when using Net in browser/electron** not in node), possible options:
+`arraybuffer,blob,document,json,text`
 
 ## Response :
 The response object has the following keys

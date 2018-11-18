@@ -17,3 +17,12 @@ export const METHODS_ALLOWED_BODY = Object.freeze({
     [METHOD.POST]   : true,
     [METHOD.PATCH]  : true,
 });
+
+//  RESPONSE TYPES
+export const RESPONSE_TYPES = Object.freeze({
+    ARRAY_BUFFER    : 'arraybuffer',
+    BLOB            : 'blob',
+    DOCUMENT        : 'document',
+    JSON            : 'json',
+    TEXT            : 'text',
+});

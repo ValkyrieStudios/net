@@ -51,6 +51,11 @@ export default class BrowserScenario extends Scenario {
                 req.withCredentials = withCredentials;
             }
 
+            //  Apply response type
+            if (options.responseType && options.responseType !== '') {
+                req.responseType = options.responseType;
+            }
+
             //  Set headers
             Object.keys(options.headers).forEach(name => req.setRequestHeader(name, options.headers[name]));
 
@@ -61,7 +66,7 @@ export default class BrowserScenario extends Scenario {
 
                 const { status, statusText } = req;
 
-                resolve(new Response(status, statusText, req.response, getResponseHeaders(req)));
+                resolve(new Response(status, statusText, req.response, getResponseHeaders(req), options));
             };
 
             //  Send request

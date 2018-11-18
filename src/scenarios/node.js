@@ -73,7 +73,7 @@ export default class NodeScenario extends Scenario {
                 //  End of response
                 res.on('end', () => {
                     const { statusCode, headers, statusMessage } = res;
-                    resolve(new Response(statusCode, statusMessage, data.join(''), headers));
+                    resolve(new Response(statusCode, statusMessage, data.join(''), headers, options));
                 });
             });
 

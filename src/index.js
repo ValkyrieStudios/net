@@ -5,6 +5,7 @@ import { noop } from '@valkyriestudios/utils/function';
 
 import { METHOD } from './constants';
 
+import serializeResponseType from './serialize/serializeResponseType';
 import serializeHeaders from './serialize/serializeHeaders';
 import serializeURL from './serialize/serializeURL';
 import serializeWithCredentials from './serialize/serializeWithCredentials';
@@ -25,6 +26,7 @@ import serializeMethod from './serialize/serializeMethod';
         params          : false,
         timeout         : false,
         withCredentials : false,
+        responseType    : '',
     });
 
     //  Determine the scenario to run in
@@ -47,6 +49,7 @@ import serializeMethod from './serialize/serializeMethod';
             onProgress          : serializeOnProgress(options, NET_CONFIG),
             timeout             : serializeTimeout(options, NET_CONFIG),
             method              : serializeMethod(method, NET_CONFIG),
+            responseType        : serializeResponseType(options, NET_CONFIG),
             data,
         });
     }
