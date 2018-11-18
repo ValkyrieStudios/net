@@ -19,9 +19,6 @@ Net.get('https://my.funky.api/myfunkyendpoint').then(
 
 ## Functionality
 
-### Net.version
-Retrieves the version number of the Net version that you are using
-
 ### Net.configure(options={})
 Configures global options for the Net class, any subsequent XHR call done through the Net proxy wrapper will use these new configuration options.
 
