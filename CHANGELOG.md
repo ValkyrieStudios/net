@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic
 Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2020-08-13
+### Improved
+- Dep: Upgrade @babel/core to 7.11.1 from 7.1.6
+- Dep: Upgrade @babel/plugin-proposal-class-properties to 7.10.4 from 7.1.0
+- Dep: Upgrade @babel/preset-env to 7.11.0 from 7.1.6
+- Dep: Upgrade gulp to 4.0.2 from 4.0.0
+
+### Fixed
+- Fixed an issue where if data of network call is undefined, a syntaxerror would be thrown
+
 ## [1.5.0] - 2018-11-18
 ### Improved
 - Updated outdated packages, moved to gulp 4 and @babel
