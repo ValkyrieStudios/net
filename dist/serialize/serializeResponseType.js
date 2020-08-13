@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = serializeResponseType;
+exports["default"] = serializeResponseType;
 
 var _string = require("@valkyriestudios/utils/string");
 

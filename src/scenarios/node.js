@@ -37,12 +37,15 @@ export default class NodeScenario extends Scenario {
                 let loaded = 0;
                 let data = [];
 
+                // uncompress the response body transparently if required
+                let stream = res;
+
                 //  uncompress the response body transparently if required
                 switch (res.headers['content-encoding']) {
                     case 'gzip':
                     case 'compress':
                     case 'deflate':
-                        res = res.pipe(zlib.createUnzip());
+                        stream = stream.pipe(zlib.createUnzip());
                         delete res.headers['content-encoding'];
                     break;
                     default:
@@ -50,10 +53,10 @@ export default class NodeScenario extends Scenario {
                 }
 
                 //  Set encoding to utf8
-                res.setEncoding('utf8');
+                stream.setEncoding('utf8');
 
                 //  Incoming data
-                res.on('data', (chunk) => {
+                stream.on('data', (chunk) => {
                     loaded += chunk.length;
                     data.push(chunk);
 
@@ -61,7 +64,7 @@ export default class NodeScenario extends Scenario {
                 });
 
                 //  If request was aborted, throw a custom error, otherwise simply reject
-                res.on('error', (err) => reject(aborted
+                stream.on('error', (err) => reject(aborted
                     ? (() => {
                         const e = new Error(`Net: Timeout of ${options.timeout} was reached`);
                         e.code = 'ECONNABORTED';
@@ -71,7 +74,7 @@ export default class NodeScenario extends Scenario {
                 ));
 
                 //  End of response
-                res.on('end', () => {
+                stream.on('end', () => {
                     const { statusCode, headers, statusMessage } = res;
                     resolve(new Response(statusCode, statusMessage, data.join(''), headers, options));
                 });

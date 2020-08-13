@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = serializeOnProgress;
+exports["default"] = serializeOnProgress;
 
 var _function = require("@valkyriestudios/utils/function");
 

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = serializeURL;
+exports["default"] = serializeURL;
 
 var _object = require("@valkyriestudios/utils/object");
 

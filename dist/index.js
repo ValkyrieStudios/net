@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _object = require("@valkyriestudios/utils/object");
 
@@ -25,7 +25,7 @@ var _serializeOnProgress = _interopRequireDefault(require("./serialize/serialize
 
 var _serializeMethod = _interopRequireDefault(require("./serialize/serializeMethod"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -53,11 +53,11 @@ var NET_CONFIG = Object.seal({
 var Scenario = null;
 
 if (typeof window !== 'undefined') {
-  Scenario = require('./scenarios/browser').default;
+  Scenario = require('./scenarios/browser')["default"];
 } else if (typeof process !== 'undefined' && (process.versions || {}).electron) {
-  Scenario = require('./scenarios/browser').default;
+  Scenario = require('./scenarios/browser')["default"];
 } else {
-  Scenario = require('./scenarios/node').default;
+  Scenario = require('./scenarios/node')["default"];
 } //  Serialize call parameters into an understandable format for every scenario
 
 
@@ -65,13 +65,13 @@ function serialize(url, method) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
   var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
   return Object.seal({
-    url: (0, _serializeURL.default)(url, options, NET_CONFIG),
-    headers: (0, _serializeHeaders.default)(options, NET_CONFIG),
-    withCredentials: (0, _serializeWithCredentials.default)(options, NET_CONFIG),
-    onProgress: (0, _serializeOnProgress.default)(options, NET_CONFIG),
-    timeout: (0, _serializeTimeout.default)(options, NET_CONFIG),
-    method: (0, _serializeMethod.default)(method, NET_CONFIG),
-    responseType: (0, _serializeResponseType.default)(options, NET_CONFIG),
+    url: (0, _serializeURL["default"])(url, options, NET_CONFIG),
+    headers: (0, _serializeHeaders["default"])(options, NET_CONFIG),
+    withCredentials: (0, _serializeWithCredentials["default"])(options, NET_CONFIG),
+    onProgress: (0, _serializeOnProgress["default"])(options, NET_CONFIG),
+    timeout: (0, _serializeTimeout["default"])(options, NET_CONFIG),
+    method: (0, _serializeMethod["default"])(method, NET_CONFIG),
+    responseType: (0, _serializeResponseType["default"])(options, NET_CONFIG),
     data: data
   });
 } //
@@ -79,9 +79,7 @@ function serialize(url, method) {
 //
 
 
-var Net =
-/*#__PURE__*/
-function () {
+var Net = /*#__PURE__*/function () {
   function Net() {
     _classCallCheck(this, Net);
   }
@@ -94,14 +92,14 @@ function () {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       //  Normalize method
       var method = "".concat(options.method.slice(0, 1).toUpperCase()).concat(options.method.slice(1));
-      return ((_METHOD$GET$METHOD$PO = {}, _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.GET, Net.get), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.POST, Net.post), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PUT, Net.put), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PATCH, Net.patch), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.DELETE, Net.delete), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.HEAD, Net.head), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.OPTIONS, Net.options), _METHOD$GET$METHOD$PO)[method] || _function.noop)(url, options);
+      return ((_METHOD$GET$METHOD$PO = {}, _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.GET, Net.get), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.POST, Net.post), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PUT, Net.put), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PATCH, Net.patch), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.DELETE, Net["delete"]), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.HEAD, Net.head), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.OPTIONS, Net.options), _METHOD$GET$METHOD$PO)[method] || _function.noop)(url, options);
     }
   }]);
 
   return Net;
 }();
 
-exports.default = Net;
+exports["default"] = Net;
 
 _defineProperty(Net, "configure", function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};

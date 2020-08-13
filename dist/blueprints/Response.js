@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _constants = require("../constants");
 
@@ -22,8 +22,14 @@ var Response = function Response(code) {
     code: code,
     msg: msg
   } : undefined;
-  this.data = options.responseType === _constants.RESPONSE_TYPES.JSON || (headers['content-type'] || '').indexOf('application/json') > -1 ? JSON.parse(data) : data;
   this.headers = headers;
+  this.data = {};
+
+  if (data) {
+    try {
+      this.data = options.responseType === _constants.RESPONSE_TYPES.JSON || (headers['content-type'] || '').indexOf('application/json') > -1 ? JSON.parse(data) : data;
+    } catch (err) {}
+  }
 };
 
-exports.default = Response;
+exports["default"] = Response;

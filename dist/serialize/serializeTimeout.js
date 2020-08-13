@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = serializeTimeout;
+exports["default"] = serializeTimeout;
 
 var _number = require("@valkyriestudios/utils/number");
 

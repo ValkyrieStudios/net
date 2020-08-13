@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = serializeHeaders;
+exports["default"] = serializeHeaders;
 
 var _object = require("@valkyriestudios/utils/object");
 
