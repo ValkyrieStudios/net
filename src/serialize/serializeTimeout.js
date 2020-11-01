@@ -1,6 +1,6 @@
 'use strict';
 
-import { isNumber } from '@valkyriestudios/utils/number';
+import isNumber from '@valkyriestudios/utils/number/is';
 
 //
 //  EXPORTS

@@ -1,13 +1,13 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
 
-var _object = require("@valkyriestudios/utils/object");
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 
-var _array = require("@valkyriestudios/utils/array");
+var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/array/is"));
 
 var _Scenario2 = _interopRequireDefault(require("../blueprints/Scenario"));
 
@@ -121,7 +121,7 @@ var BrowserScenario = /*#__PURE__*/function (_Scenario) {
 
 
         if (options.data && _constants.METHODS_ALLOWED_BODY[options.method]) {
-          req.send((0, _object.isObject)(options.data) || (0, _array.isArray)(options.data) ? JSON.stringify(options.data) : options.data);
+          req.send((0, _is["default"])(options.data) || (0, _is2["default"])(options.data) ? JSON.stringify(options.data) : options.data);
         } else {
           req.send();
         }

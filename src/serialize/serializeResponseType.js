@@ -1,7 +1,7 @@
 'use strict';
 
-import { isString } from '@valkyriestudios/utils/string';
-import { RESPONSE_TYPES } from '../constants';
+import isString             from '@valkyriestudios/utils/string/is';
+import { RESPONSE_TYPES }   from '../constants';
 
 const map = Object.keys(RESPONSE_TYPES).reduce((acc, key) => {
     acc[RESPONSE_TYPES[key]] = key;

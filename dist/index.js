@@ -5,9 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _object = require("@valkyriestudios/utils/object");
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 
-var _function = require("@valkyriestudios/utils/function");
+var _noop = _interopRequireDefault(require("@valkyriestudios/utils/function/noop"));
 
 var _constants = require("./constants");
 
@@ -92,7 +92,7 @@ var Net = /*#__PURE__*/function () {
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       //  Normalize method
       var method = "".concat(options.method.slice(0, 1).toUpperCase()).concat(options.method.slice(1));
-      return ((_METHOD$GET$METHOD$PO = {}, _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.GET, Net.get), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.POST, Net.post), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PUT, Net.put), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PATCH, Net.patch), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.DELETE, Net["delete"]), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.HEAD, Net.head), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.OPTIONS, Net.options), _METHOD$GET$METHOD$PO)[method] || _function.noop)(url, options);
+      return ((_METHOD$GET$METHOD$PO = {}, _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.GET, Net.get), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.POST, Net.post), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PUT, Net.put), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PATCH, Net.patch), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.DELETE, Net["delete"]), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.HEAD, Net.head), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.OPTIONS, Net.options), _METHOD$GET$METHOD$PO)[method] || _noop["default"])(url, options);
     }
   }]);
 
@@ -103,7 +103,7 @@ exports["default"] = Net;
 
 _defineProperty(Net, "configure", function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  if (!(0, _object.isObject)(options)) throw new TypeError('Net:configure expects an Object');
+  if (!(0, _is["default"])(options)) throw new TypeError('Net:configure expects an Object');
   Object.keys(options).forEach(function (key) {
     if (NET_CONFIG.hasOwnProperty(key)) {
       NET_CONFIG[key] = options[key];

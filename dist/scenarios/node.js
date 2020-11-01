@@ -1,17 +1,17 @@
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
 
-var _object = require("@valkyriestudios/utils/object");
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 
-var _function = require("@valkyriestudios/utils/function");
+var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/function/is"));
 
-var _array = require("@valkyriestudios/utils/array");
+var _is3 = _interopRequireDefault(require("@valkyriestudios/utils/array/is"));
 
-var _string = require("@valkyriestudios/utils/string");
+var _is4 = _interopRequireDefault(require("@valkyriestudios/utils/string/is"));
 
 var _constants = require("../constants");
 
@@ -147,7 +147,7 @@ var NodeScenario = /*#__PURE__*/function (_Scenario) {
         if (options.data && _constants.METHODS_ALLOWED_BODY[options.method]) {
           var data = options.data; //  Stream
 
-          if ((0, _object.isObject)(options.data) && (0, _function.isFunction)(options.data)) {
+          if ((0, _is["default"])(options.data) && (0, _is2["default"])(options.data)) {
             data.pipe(req);
             return;
           } //  Apply some conversion
@@ -155,7 +155,7 @@ var NodeScenario = /*#__PURE__*/function (_Scenario) {
 
           if (Object.prototype.toString.call(data) === '[object ArrayBuffer]') {
             data = new Buffer(new Uint8Array(data));
-          } else if ((0, _array.isArray)(data) || (0, _object.isObject)(data)) {
+          } else if ((0, _is3["default"])(data) || (0, _is["default"])(data)) {
             data = new Buffer(JSON.stringify(data), 'utf-8');
           } else {
             data = new Buffer('' + data, 'utf-8');

@@ -1,7 +1,7 @@
 'use strict';
 
-import { isObject } from '@valkyriestudios/utils/object';
-import { isArray } from '@valkyriestudios/utils/array';
+import isObject     from '@valkyriestudios/utils/object/is';
+import isArray      from '@valkyriestudios/utils/array/is';
 
 //
 //  EXPORTS

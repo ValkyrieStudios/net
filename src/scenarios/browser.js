@@ -1,7 +1,9 @@
-import { isObject } from '@valkyriestudios/utils/object';
-import { isArray } from '@valkyriestudios/utils/array';
-import Scenario from '../blueprints/Scenario';
-import Response from '../blueprints/Response';
+'use strict';
+
+import isObject                 from '@valkyriestudios/utils/object/is';
+import isArray                  from '@valkyriestudios/utils/array/is';
+import Scenario                 from '../blueprints/Scenario';
+import Response                 from '../blueprints/Response';
 import { METHODS_ALLOWED_BODY } from '../constants';
 
 function getResponseHeaders (req) {

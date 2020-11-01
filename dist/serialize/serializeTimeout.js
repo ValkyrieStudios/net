@@ -5,7 +5,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = serializeTimeout;
 
-var _number = require("@valkyriestudios/utils/number");
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/number/is"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //
 //  EXPORTS
@@ -13,6 +15,6 @@ var _number = require("@valkyriestudios/utils/number");
 function serializeTimeout(options, NET_CONFIG) {
   var timeout = Object.prototype.hasOwnProperty.call(options, 'timeout') ? options.timeout : NET_CONFIG.timeout;
   if (!timeout) return false;
-  if (!(0, _number.isNumber)(timeout)) throw new TypeError('Net:serializeTimeout expects timeout to be an integer number');
+  if (!(0, _is["default"])(timeout)) throw new TypeError('Net:serializeTimeout expects timeout to be an integer number');
   return timeout;
 }

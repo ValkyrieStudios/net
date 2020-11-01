@@ -5,11 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = serializeURL;
 
-var _object = require("@valkyriestudios/utils/object");
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 
-var _array = require("@valkyriestudios/utils/array");
+var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/array/is"));
 
-var _string = require("@valkyriestudios/utils/string");
+var _is3 = _interopRequireDefault(require("@valkyriestudios/utils/string/is"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 //
 //  PRIVATE
@@ -19,11 +21,11 @@ var _string = require("@valkyriestudios/utils/string");
 function serializeQueryParameters(params) {
   var query = params;
 
-  if (!(0, _object.isObject)(params) && !(0, _string.isString)(params) || (0, _array.isArray)(params)) {
+  if (!(0, _is["default"])(params) && !(0, _is3["default"])(params) || (0, _is2["default"])(params)) {
     throw new TypeError('Net:serializeURL expects params option to be either a string or an object');
   }
 
-  if ((0, _object.isObject)(params)) {
+  if ((0, _is["default"])(params)) {
     query = Object.keys(params).reduce(function (acc, key) {
       acc.push("".concat(encodeURIComponent(key), "=").concat(encodeURIComponent(params[key])));
       return acc;

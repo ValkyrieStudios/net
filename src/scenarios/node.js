@@ -1,14 +1,16 @@
-import { isObject } from '@valkyriestudios/utils/object';
-import { isFunction } from '@valkyriestudios/utils/function';
-import { isArray } from '@valkyriestudios/utils/array';
-import { isString } from '@valkyriestudios/utils/string';
+'use strict';
+
+import isObject                 from '@valkyriestudios/utils/object/is';
+import isFunction               from '@valkyriestudios/utils/function/is';
+import isArray                  from '@valkyriestudios/utils/array/is';
+import isString                 from '@valkyriestudios/utils/string/is';
 import { METHODS_ALLOWED_BODY } from '../constants';
-import Response from '../blueprints/Response';
-import Scenario from '../blueprints/Scenario';
-import http from 'http';
-import https from 'https';
-import url from 'url';
-import zlib from 'zlib';
+import Response                 from '../blueprints/Response';
+import Scenario                 from '../blueprints/Scenario';
+import http                     from 'http';
+import https                    from 'https';
+import url                      from 'url';
+import zlib                     from 'zlib';
 
 //  Creates a request to the provided url and applies the configured options to it
 export default class NodeScenario extends Scenario {

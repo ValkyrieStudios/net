@@ -1,17 +1,17 @@
 'use strict';
 
-import { isObject } from '@valkyriestudios/utils/object';
-import { noop } from '@valkyriestudios/utils/function';
+import isObject from '@valkyriestudios/utils/object/is';
+import noop     from '@valkyriestudios/utils/function/noop';
 
-import { METHOD } from './constants';
+import { METHOD }               from './constants';
 
-import serializeResponseType from './serialize/serializeResponseType';
-import serializeHeaders from './serialize/serializeHeaders';
-import serializeURL from './serialize/serializeURL';
+import serializeResponseType    from './serialize/serializeResponseType';
+import serializeHeaders         from './serialize/serializeHeaders';
+import serializeURL             from './serialize/serializeURL';
 import serializeWithCredentials from './serialize/serializeWithCredentials';
-import serializeTimeout from './serialize/serializeTimeout';
-import serializeOnProgress from './serialize/serializeOnProgress';
-import serializeMethod from './serialize/serializeMethod';
+import serializeTimeout         from './serialize/serializeTimeout';
+import serializeOnProgress      from './serialize/serializeOnProgress';
+import serializeMethod          from './serialize/serializeMethod';
 
 //
 //  PRIVATE

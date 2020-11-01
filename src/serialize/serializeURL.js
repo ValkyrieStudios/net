@@ -1,8 +1,8 @@
 'use strict';
 
-import { isObject } from '@valkyriestudios/utils/object';
-import { isArray } from '@valkyriestudios/utils/array';
-import { isString } from '@valkyriestudios/utils/string';
+import isObject     from '@valkyriestudios/utils/object/is';
+import isArray      from '@valkyriestudios/utils/array/is';
+import isString     from '@valkyriestudios/utils/string/is';
 
 //
 //  PRIVATE

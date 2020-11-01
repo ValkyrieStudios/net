@@ -1,6 +1,6 @@
 'use strict';
 
-import { isFunction } from '@valkyriestudios/utils/function';
+import isFunction from '@valkyriestudios/utils/function/is';
 
 //
 //  EXPORTS
