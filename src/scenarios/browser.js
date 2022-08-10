@@ -1,16 +1,14 @@
 'use strict';
 
-import isObject                 from '@valkyriestudios/utils/object/is';
-import isArray                  from '@valkyriestudios/utils/array/is';
+import Is                       from '@valkyriestudios/utils/is';
 import Scenario                 from '../blueprints/Scenario';
 import Response                 from '../blueprints/Response';
-import { METHODS_ALLOWED_BODY } from '../constants';
+import {METHODS_ALLOWED_BODY}   from '../constants';
 
 function getResponseHeaders (req) {
     return req.getAllResponseHeaders().split('\n').reduce((acc, header) => {
         header = header.split(':') || [];
-
-        if (header.length === 0) return acc;
+        if (!Is.NotEmptyArray(header)) return acc;
 
         const key = header.shift().trim().toLowerCase();
         const val = header.join(':').trim();
@@ -36,15 +34,16 @@ export default class BrowserScenario extends Scenario {
             req.open(options.method, options.url, true);
 
             //  Apply configurable listeners to the request
-            req.onerror = (err) => reject(err);
-            req.onabort = (err) => reject(err);
+            req.onerror = err => reject(err);
+            req.onabort = err => reject(err);
 
             if (options.timeout) {
                 req.ontimeout = (err) => reject(err);
                 req.timeout = Math.floor(options.timeout);
             }
 
-            if (options.onProgress) {
+            //  On Progress handler
+            if (Is.Function(options.onProgress)) {
                 req.onprogress = options.onProgress;
             }
 
@@ -54,26 +53,26 @@ export default class BrowserScenario extends Scenario {
             }
 
             //  Apply response type
-            if (options.responseType && options.responseType !== '') {
+            if (Is.NotEmptyString(options.responseType)) {
                 req.responseType = options.responseType;
             }
 
             //  Set headers
-            Object.keys(options.headers).forEach(name => req.setRequestHeader(name, options.headers[name]));
+            if (Is.NotEmptyObject(options.headers)) {
+                for (let k of Object.keys(options.headers)) req.setRequestHeader(k, options.headers[k]);
+            }
 
             //  Triggered when the state of the XMLHttpRequest changes
             req.onreadystatechange = () => {
                 if (req.readyState !== 4) return;
                 if (req.status === 0 && !((req.responseURL || '').indexOf('file:') === 0)) return;
 
-                const { status, statusText } = req;
-
-                resolve(new Response(status, statusText, req.response, getResponseHeaders(req), options));
+                resolve(new Response(req.status, req.statusText, req.response, getResponseHeaders(req), options));
             };
 
             //  Send request
             if (options.data && METHODS_ALLOWED_BODY[options.method]) {
-                req.send((isObject(options.data) || isArray(options.data)) ? JSON.stringify(options.data) : options.data);
+                req.send(Is.Object(options.data) || Is.Array(options.data) ? JSON.stringify(options.data) : options.data);
             } else {
                 req.send();
             }

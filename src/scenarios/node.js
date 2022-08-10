@@ -1,10 +1,7 @@
 'use strict';
 
-import isObject                 from '@valkyriestudios/utils/object/is';
-import isFunction               from '@valkyriestudios/utils/function/is';
-import isArray                  from '@valkyriestudios/utils/array/is';
-import isString                 from '@valkyriestudios/utils/string/is';
-import { METHODS_ALLOWED_BODY } from '../constants';
+import Is                       from '@valkyriestudios/utils/is';
+import {METHODS_ALLOWED_BODY}   from '../constants';
 import Response                 from '../blueprints/Response';
 import Scenario                 from '../blueprints/Scenario';
 import http                     from 'http';
@@ -98,7 +95,7 @@ export default class NodeScenario extends Scenario {
                 let data = options.data;
 
                 //  Stream
-                if (isObject(options.data) && isFunction(options.data)) {
+                if (Is.Object(options.data) && Is.Function(options.data)) {
                     data.pipe(req);
                     return;
                 }
@@ -106,7 +103,7 @@ export default class NodeScenario extends Scenario {
                 //  Apply some conversion
                 if (Object.prototype.toString.call(data) === '[object ArrayBuffer]') {
                     data = new Buffer(new Uint8Array(data));
-                } else if (isArray(data) || isObject(data)) {
+                } else if (Is.Array(data) || Is.Object(data)) {
                     data = new Buffer(JSON.stringify(data), 'utf-8');
                 } else {
                     data = new Buffer(''+data, 'utf-8');
