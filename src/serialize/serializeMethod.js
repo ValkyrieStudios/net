@@ -1,6 +1,7 @@
 'use strict';
 
-import {METHOD} from '../constants';
+import Is           from '@valkyriestudios/utils/is';
+import {METHOD}     from '../constants';
 
 const METHOD_VALUES = Object.freeze(Object.keys(METHOD).reduce((acc, key) => {
     acc[METHOD[key]] = true;
