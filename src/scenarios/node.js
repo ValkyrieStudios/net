@@ -30,7 +30,7 @@ export default class NodeScenario extends Scenario {
                 method      : options.method.toUpperCase(),
                 headers     : options.headers || {},
                 protocol    : url_parsed.protocol,
-            }, (res) => {
+            }, res => {
                 //  Keep track of the amount of downloaded vs total bytes
                 const total = parseInt(res.headers['content-length'], 10);
                 let loaded = 0;
@@ -59,7 +59,9 @@ export default class NodeScenario extends Scenario {
                     loaded += chunk.length;
                     data.push(chunk);
 
-                    if (options.onProgress) options.onProgress({ total, loaded });
+                    if (Is.Function(options.onProgress)) {
+                        options.onProgress({total, loaded});
+                    }
                 });
 
                 //  If request was aborted, throw a custom error, otherwise simply reject
@@ -74,8 +76,7 @@ export default class NodeScenario extends Scenario {
 
                 //  End of response
                 stream.on('end', () => {
-                    const { statusCode, headers, statusMessage } = res;
-                    resolve(new Response(statusCode, statusMessage, data.join(''), headers, options));
+                    resolve(new Response(res.statusCode, res.statusMessage, data.join(''), res.headers, options));
                 });
             });
 

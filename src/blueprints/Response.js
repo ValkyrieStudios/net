@@ -1,6 +1,6 @@
 'use strict';
 
-import { RESPONSE_TYPES } from '../constants';
+import {RESPONSE_TYPES} from '../constants';
 
 //  Parses the response to a request and returns an object of form {status, data, headers, options}
 

@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
 
 var _noop = _interopRequireDefault(require("@valkyriestudios/utils/function/noop"));
 
@@ -31,13 +31,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//  PRIVATE
-//
 //  NET Library configuration
 var NET_CONFIG = Object.seal({
   base: false,
@@ -74,10 +71,7 @@ function serialize(url, method) {
     responseType: (0, _serializeResponseType["default"])(options, NET_CONFIG),
     data: data
   });
-} //
-//  EXPORTS
-//
-
+}
 
 var Net = /*#__PURE__*/function () {
   function Net() {
@@ -103,7 +97,7 @@ exports["default"] = Net;
 
 _defineProperty(Net, "configure", function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  if (!(0, _is["default"])(options)) throw new TypeError('Net:configure expects an Object');
+  if (!_is["default"].Object(options)) throw new TypeError('Net:configure expects an Object');
   Object.keys(options).forEach(function (key) {
     if (NET_CONFIG.hasOwnProperty(key)) {
       NET_CONFIG[key] = options[key];

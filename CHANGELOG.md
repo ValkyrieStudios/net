@@ -11,6 +11,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Dep: Upgrade @babel/core to 7.18.10
 - Dep: Upgrade @babel/preset-env to 7.18.10
 - Dep: Upgrade @babel/plugin-proposal-class-properties to 7.18.6
+- helper:serializeOnProgress no longer throws if a non-function non-false is passed, instead it silently falls back to false
+- helper:serializeTimeout no longer throws if a non-numeric non-false is passed, instead it silently falls back to false
+
+### Fixed
+- helper:serializeTimeout no longer allows passing a negative (below 0) number
 
 ## [1.6.0] - 2020-11-01
 ### Improved
