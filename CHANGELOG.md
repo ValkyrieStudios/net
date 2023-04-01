@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 
 Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Dep: eslint@8.37.0
+
 ### Improved
 - Dep: Upgrade @valkyriestudios/utils to 5.3.1
 - Dep: Upgrade @babel/core to 7.21.4
