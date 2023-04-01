@@ -25,9 +25,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
 //  NET Library configuration
 var NET_CONFIG = Object.seal({
   base: false,
-  headers: {
-    'Content-Type': 'application/json'
-  },
+  headers: false,
   method: false,
   onProgress: false,
   params: false,

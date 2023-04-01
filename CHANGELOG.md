@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic
 Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## Unreleased
 ### Added
 - Dep: eslint@8.37.0
 
@@ -16,9 +16,6 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Node Scenario: Only positive integers above 0 are now allowed for timeout options
 - Browser Scenario: Only positive integers above 0 are now allowed for timeout options
 - helper:serializeTimeout: No longer allows passing anything but an integer above 0
-
-### Breaking
-- Net is now by default configured for application/json content type
 
 ### Fixed
 - Node Scenario: Fix issue where working with timeout the timer would not be cleared correctly after abort, leading to ghost timer

@@ -16,7 +16,7 @@ import serializeMethod          from './serialize/serializeMethod';
 //  NET Library configuration
 const NET_CONFIG = Object.seal({
     base            : false,
-    headers         : {'Content-Type': 'application/json'},
+    headers         : false,
     method          : false,
     onProgress      : false,
     params          : false,
