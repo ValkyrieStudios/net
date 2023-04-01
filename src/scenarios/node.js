@@ -85,11 +85,11 @@ export default class NodeScenario extends Scenario {
             req.on('error', reject);
 
             //  Timeout
-            if (options.timeout) {
+            if (Is.IntegerAbove(options.timeout, 0)) {
                 timer = setTimeout(() => {
                     aborted = true;
-                    req.abort()
-                }, Math.floor(options.timeout));
+                    req.abort();
+                }, options.timeout);
             }
 
             //  Send request

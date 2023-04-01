@@ -13,6 +13,9 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Dep: Upgrade @valkyriestudios/utils to 5.3.1
 - Dep: Upgrade @babel/core to 7.21.4
 - Dep: Upgrade @babel/preset-env to 7.21.4
+- Node Scenario: Only positive integers above 0 are now allowed for timeout options
+- Browser Scenario: Only positive integers above 0 are now allowed for timeout options
+- helper:serializeTimeout: No longer allows passing anything but an integer above 0
 
 ## [1.7.1] - 2022-08-10
 ### Fixed

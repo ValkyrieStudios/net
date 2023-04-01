@@ -36,9 +36,9 @@ export default class BrowserScenario extends Scenario {
             req.onerror = err => reject(err);
             req.onabort = err => reject(err);
 
-            if (options.timeout) {
-                req.ontimeout = (err) => reject(err);
-                req.timeout = Math.floor(options.timeout);
+            if (Is.IntegerAbove(options.timeout)) {
+                req.ontimeout = err => reject(err);
+                req.timeout = options.timeout;
             }
 
             //  On Progress handler
@@ -68,7 +68,7 @@ export default class BrowserScenario extends Scenario {
                 if (req.readyState !== 4) return;
                 if (req.status === 0 && !((req.responseURL || '').indexOf('file:') === 0)) return;
 
-                resolve(new Response(req.status, req.statusText, req.response, getResponseHeaders(req), options));
+                return resolve(new Response(req.status, req.statusText, req.response, getResponseHeaders(req), options));
             };
 
             //  Send request
