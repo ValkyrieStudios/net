@@ -77,7 +77,9 @@ export default class NodeScenario extends Scenario {
 
                 //  End of response
                 stream.on('end', () => {
-                    resolve(new Response(res.statusCode, res.statusMessage, data.join(''), res.headers, options));
+                    if (timer) clearTimeout();
+
+                    return resolve(new Response(res.statusCode, res.statusMessage, data.join(''), res.headers, options));
                 });
             });
 
@@ -89,6 +91,7 @@ export default class NodeScenario extends Scenario {
                 timer = setTimeout(() => {
                     aborted = true;
                     req.abort();
+                    clearTimeout(timer);
                 }, options.timeout);
             }
 
