@@ -17,12 +17,12 @@
   },
   "homepage": "https://github.com/ValkyrieStudios/net#readme",
   "dependencies": {
-    "@valkyriestudios/utils": "^5.1.0"
+    "@valkyriestudios/utils": "^5.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.10",
+    "@babel/core": "^7.21.4",
     "@babel/plugin-proposal-class-properties": "^7.18.6",
-    "@babel/preset-env": "^7.18.10",
+    "@babel/preset-env": "^7.21.4",
     "gulp": "^4.0.2",
     "gulp-babel": "^8.0.0"
   }
