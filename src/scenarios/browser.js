@@ -13,7 +13,7 @@ function getResponseHeaders (req) {
         const key = header.shift().trim().toLowerCase();
         const val = header.join(':').trim();
 
-        if (key === '') return acc;
+        if (!Is.NotEmptyString(key)) return acc;
 
         acc[key] = acc.hasOwnProperty(key)
             ? `${acc[key]}, ${val}`
@@ -24,10 +24,9 @@ function getResponseHeaders (req) {
 }
 
 export default class BrowserScenario extends Scenario {
-    //  Creates an xhr request to the provided url and applies the configured options to it
+
     static run (options) {
         return super.run(options, (resolve, reject) => {
-            //  Create a new request object
             const req = new XMLHttpRequest();
 
             //  Open request to url
@@ -49,7 +48,7 @@ export default class BrowserScenario extends Scenario {
 
             //  Apply with credentials
             if (options.withCredentials) {
-                req.withCredentials = withCredentials;
+                req.withCredentials = options.withCredentials;
             }
 
             //  Apply response type
@@ -59,7 +58,9 @@ export default class BrowserScenario extends Scenario {
 
             //  Set headers
             if (Is.NotEmptyObject(options.headers)) {
-                for (let k of Object.keys(options.headers)) req.setRequestHeader(k, options.headers[k]);
+                for (const header of Object.keys(options.headers)) {
+                    req.setRequestHeader(header, options.headers[header]);
+                }
             }
 
             //  Triggered when the state of the XMLHttpRequest changes
@@ -78,4 +79,5 @@ export default class BrowserScenario extends Scenario {
             }
         });
     }
+
 }

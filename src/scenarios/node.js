@@ -11,6 +11,7 @@ import zlib                     from 'zlib';
 
 //  Creates a request to the provided url and applies the configured options to it
 export default class NodeScenario extends Scenario {
+
     static run (options) {
         return super.run(options, (resolve, reject) => {
             let aborted = false;
@@ -20,7 +21,7 @@ export default class NodeScenario extends Scenario {
             const url_parsed = url.parse(options.url);
 
             //  Retrieve library to do request with
-            const lib = (url_parsed.protocol === 'https:') ? https : http;
+            const lib = url_parsed.protocol === 'https:' ? https : http;
 
             //  Create request
             const req = lib.request({
@@ -34,7 +35,7 @@ export default class NodeScenario extends Scenario {
                 //  Keep track of the amount of downloaded vs total bytes
                 const total = parseInt(res.headers['content-length'], 10);
                 let loaded = 0;
-                let data = [];
+                const data = [];
 
                 // uncompress the response body transparently if required
                 let stream = res;
@@ -46,7 +47,7 @@ export default class NodeScenario extends Scenario {
                     case 'deflate':
                         stream = stream.pipe(zlib.createUnzip());
                         delete res.headers['content-encoding'];
-                    break;
+                        break;
                     default:
                         break;
                 }
@@ -55,7 +56,7 @@ export default class NodeScenario extends Scenario {
                 stream.setEncoding('utf8');
 
                 //  Incoming data
-                stream.on('data', (chunk) => {
+                stream.on('data', chunk => {
                     loaded += chunk.length;
                     data.push(chunk);
 
@@ -65,11 +66,11 @@ export default class NodeScenario extends Scenario {
                 });
 
                 //  If request was aborted, throw a custom error, otherwise simply reject
-                stream.on('error', (err) => reject(aborted
+                stream.on('error', err => reject(aborted
                     ? (() => {
-                        const e = new Error(`Net: Timeout of ${options.timeout} was reached`);
-                        e.code = 'ECONNABORTED';
-                        return e;
+                        const abort_error = new Error(`Net: Timeout of ${options.timeout} was reached`);
+                        abort_error.code = 'ECONNABORTED';
+                        return abort_error;
                     })()
                     : err
                 ));
@@ -107,7 +108,7 @@ export default class NodeScenario extends Scenario {
                 } else if (Is.Array(data) || Is.Object(data)) {
                     data = new Buffer(JSON.stringify(data), 'utf-8');
                 } else {
-                    data = new Buffer(''+data, 'utf-8');
+                    data = new Buffer(`${data}`, 'utf-8');
                 }
 
                 req.end(data);
@@ -116,4 +117,5 @@ export default class NodeScenario extends Scenario {
             }
         });
     }
+
 }

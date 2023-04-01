@@ -9,13 +9,11 @@ const map = Object.keys(RESPONSE_TYPES).reduce((acc, key) => {
 }, {});
 
 export default function serializeResponseType (options, NET_CONFIG) {
-    const responseType = Object.prototype.hasOwnProperty.call(options, 'responseType')
+    const responseType = Is.Object(options) && options.hasOwnProperty('responseType')
         ? options.responseType
         : NET_CONFIG.responseType;
 
-    if (!Is.String(responseType)) {
-        throw new TypeError('Net:serializeResponseType expects responseType to be a string');
-    }
+    if (!Is.NotEmptyString(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
 
-    return Object.prototype.hasOwnProperty.call(map, responseType) ? responseType : '';
+    return map[responseType] || '';
 }

@@ -9,11 +9,10 @@ const METHOD_VALUES = Object.freeze(Object.keys(METHOD).reduce((acc, key) => {
 }, Object.create(null)));
 
 export default function serializeMethod (method, NET_CONFIG) {
-    const serialized_method = Is.NotEmptyString(method) ? method : NET_CONFIG.method;
-
-    if (!Object.prototype.hasOwnProperty.call(METHOD_VALUES, serialized_method)) {
-        throw new TypeError('NET:serializeMethod an unknown HTTP verb was passed as method');
-    }
+    const serialized_method = Is.NotEmptyString(method)
+        ? method.trim()
+        : NET_CONFIG.method;
+    if (!METHOD_VALUES[serialized_method]) throw new TypeError('NET:serializeMethod an unknown HTTP verb was passed as method');
 
     return serialized_method;
 }

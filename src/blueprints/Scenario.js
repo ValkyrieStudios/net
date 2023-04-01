@@ -1,13 +1,15 @@
 'use strict';
 
 export default class Scenario {
-    static run (options, cb)  {
+
+    static run (options, next)  {
         return new Promise((resolve, reject) => {
             try {
-                cb(resolve, reject);
+                return next(resolve, reject);
             } catch (err) {
-                reject(err);
+                return reject(err);
             }
         });
     }
+
 }

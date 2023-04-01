@@ -2,18 +2,19 @@
 
 import Is from '@valkyriestudios/utils/is';
 
+//  Combine option headers and default headers
+//
+//  @param object   options     Options object
+//  @param object   NET_CONFIG  Default net configuration object
 export default function serializeHeaders (options, NET_CONFIG) {
-    const options_headers = options.headers || {};
-    const default_headers = NET_CONFIG.headers || {};
-
-    if (!Is.Object(options_headers)) {
-        throw new TypeError('NET:serializeHeaders options.headers was set to a non-object structure. An object is required.');
-    }
-
-    if (!Is.Object(default_headers)) {
-        throw new TypeError('NET:serializeHeaders NET_CONFIG.headers was set to a non-object structure. An object is required.');
-    }
-
-    //  Combine the headers with specificity being given to options.headers
-    return Object.assign({}, default_headers, options_headers);
+    return Object.assign({},
+        //  Default headers
+        Is.Object(NET_CONFIG) && Is.Object(NET_CONFIG.headers)
+            ? NET_CONFIG.headers
+            : {},
+        //  Passed option headers
+        Is.Object(options) && Is.Object(options.headers)
+            ? options.headers
+            : {}
+    );
 }

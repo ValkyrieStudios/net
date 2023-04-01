@@ -52,41 +52,40 @@ function serialize (url, method, options = {}, data = false) {
 
 export default class Net {
 
-    static configure = (options = {}) => {
+    static configure (options = {}) {
         if (!Is.Object(options)) throw new TypeError('Net:configure expects an Object');
 
-        Object.keys(options).forEach((key) => {
-            if (NET_CONFIG.hasOwnProperty(key)) {
-                NET_CONFIG[key] = options[key];
-            }
-        });
-    };
+        for (const key of Object.keys(options)) {
+            if (!NET_CONFIG.hasOwnProperty(key)) continue;
+            NET_CONFIG[key] = options[key];
+        }
+    }
 
-    static get = (url, options = {}) => {
+    static get (url, options = {}) {
         return Scenario.run(serialize(url, METHOD.GET, options));
     }
 
-    static post = (url, data, options = {}) => {
+    static post (url, data, options = {}) {
         return Scenario.run(serialize(url, METHOD.POST, options, data));
     }
 
-    static put = (url, data, options = {}) => {
+    static put (url, data, options = {}) {
         return Scenario.run(serialize(url, METHOD.PUT, options, data));
     }
 
-    static patch = (url, data, options = {}) => {
+    static patch (url, data, options = {}) {
         return Scenario.run(serialize(url, METHOD.PATCH, options, data));
     }
 
-    static delete = (url, options = {}) => {
+    static delete (url, options = {}) {
         return Scenario.run(serialize(url, METHOD.DELETE, options));
     }
 
-    static head = (url, options = {}) => {
+    static head (url, options = {}) {
         return Scenario.run(serialize(url, METHOD.HEAD, options));
     }
 
-    static options = (url, options = {}) => {
+    static options (url, options = {}) {
         return Scenario.run(serialize(url, METHOD.OPTIONS, options));
     }
 
@@ -103,5 +102,6 @@ export default class Net {
             [METHOD.HEAD]       : Net.head,
             [METHOD.OPTIONS]    : Net.options,
         }[method] || noop)(url, options);
-    };
+    }
+
 }
