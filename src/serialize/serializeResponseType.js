@@ -13,7 +13,7 @@ export default function serializeResponseType (options, NET_CONFIG) {
         ? options.responseType
         : NET_CONFIG.responseType;
 
-    if (!Is.NotEmptyString(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
+    if (!Is.String(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
 
     return map[responseType] || '';
 }

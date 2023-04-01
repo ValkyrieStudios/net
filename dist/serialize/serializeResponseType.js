@@ -13,6 +13,6 @@ var map = Object.keys(_constants.RESPONSE_TYPES).reduce(function (acc, key) {
 }, {});
 function serializeResponseType(options, NET_CONFIG) {
   var responseType = _is["default"].Object(options) && options.hasOwnProperty('responseType') ? options.responseType : NET_CONFIG.responseType;
-  if (!_is["default"].NotEmptyString(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
+  if (!_is["default"].String(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
   return map[responseType] || '';
 }
