@@ -4,7 +4,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = serializeResponseType;
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
+var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/string/is"));
 var _constants = require("../constants");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var map = Object.keys(_constants.RESPONSE_TYPES).reduce(function (acc, key) {
@@ -12,7 +13,7 @@ var map = Object.keys(_constants.RESPONSE_TYPES).reduce(function (acc, key) {
   return acc;
 }, {});
 function serializeResponseType(options, NET_CONFIG) {
-  var responseType = _is["default"].Object(options) && options.hasOwnProperty('responseType') ? options.responseType : NET_CONFIG.responseType;
-  if (!_is["default"].String(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
+  var responseType = (0, _is["default"])(options) && options.hasOwnProperty('responseType') ? options.responseType : NET_CONFIG.responseType;
+  if (!(0, _is2["default"])(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
   return map[responseType] || '';
 }

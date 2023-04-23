@@ -5,7 +5,13 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/function/is"));
+var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
+var _isNotEmpty = _interopRequireDefault(require("@valkyriestudios/utils/object/isNotEmpty"));
+var _is3 = _interopRequireDefault(require("@valkyriestudios/utils/array/is"));
+var _isNotEmpty2 = _interopRequireDefault(require("@valkyriestudios/utils/array/isNotEmpty"));
+var _isNotEmpty3 = _interopRequireDefault(require("@valkyriestudios/utils/string/isNotEmpty"));
+var _isIntegerAbove = _interopRequireDefault(require("@valkyriestudios/utils/number/isIntegerAbove"));
 var _Scenario2 = _interopRequireDefault(require("../blueprints/Scenario"));
 var _Response = _interopRequireDefault(require("../blueprints/Response"));
 var _constants = require("../constants");
@@ -27,10 +33,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function getResponseHeaders(req) {
   return req.getAllResponseHeaders().split('\n').reduce(function (acc, header) {
     header = header.split(':') || [];
-    if (!_is["default"].NotEmptyArray(header)) return acc;
+    if (!(0, _isNotEmpty2["default"])(header)) return acc;
     var key = header.shift().trim().toLowerCase();
     var val = header.join(':').trim();
-    if (!_is["default"].NotEmptyString(key)) return acc;
+    if (!(0, _isNotEmpty3["default"])(key)) return acc;
     acc[key] = acc.hasOwnProperty(key) ? "".concat(acc[key], ", ").concat(val) : val;
     return acc;
   }, {});
@@ -58,7 +64,7 @@ var BrowserScenario = /*#__PURE__*/function (_Scenario) {
         req.onabort = function (err) {
           return reject(err);
         };
-        if (_is["default"].IntegerAbove(options.timeout)) {
+        if ((0, _isIntegerAbove["default"])(options.timeout)) {
           req.ontimeout = function (err) {
             return reject(err);
           };
@@ -66,7 +72,7 @@ var BrowserScenario = /*#__PURE__*/function (_Scenario) {
         }
 
         //  On Progress handler
-        if (_is["default"].Function(options.onProgress)) {
+        if ((0, _is["default"])(options.onProgress)) {
           req.onprogress = options.onProgress;
         }
 
@@ -76,12 +82,12 @@ var BrowserScenario = /*#__PURE__*/function (_Scenario) {
         }
 
         //  Apply response type
-        if (_is["default"].NotEmptyString(options.responseType)) {
+        if ((0, _isNotEmpty3["default"])(options.responseType)) {
           req.responseType = options.responseType;
         }
 
         //  Set headers
-        if (_is["default"].NotEmptyObject(options.headers)) {
+        if ((0, _isNotEmpty["default"])(options.headers)) {
           for (var _i = 0, _Object$keys = Object.keys(options.headers); _i < _Object$keys.length; _i++) {
             var header = _Object$keys[_i];
             req.setRequestHeader(header, options.headers[header]);
@@ -97,7 +103,7 @@ var BrowserScenario = /*#__PURE__*/function (_Scenario) {
 
         //  Send request
         if (options.data && _constants.METHODS_ALLOWED_BODY[options.method]) {
-          req.send(_is["default"].Object(options.data) || _is["default"].Array(options.data) ? JSON.stringify(options.data) : options.data);
+          req.send((0, _is2["default"])(options.data) || (0, _is3["default"])(options.data) ? JSON.stringify(options.data) : options.data);
         } else {
           req.send();
         }

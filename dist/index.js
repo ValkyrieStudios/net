@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 var _noop = _interopRequireDefault(require("@valkyriestudios/utils/function/noop"));
 var _constants = require("./constants");
 var _serializeResponseType = _interopRequireDefault(require("./serialize/serializeResponseType"));
@@ -67,7 +67,7 @@ var Net = /*#__PURE__*/function () {
     key: "configure",
     value: function configure() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      if (!_is["default"].Object(options)) throw new TypeError('Net:configure expects an Object');
+      if (!(0, _is["default"])(options)) throw new TypeError('Net:configure expects an Object');
       for (var _i = 0, _Object$keys = Object.keys(options); _i < _Object$keys.length; _i++) {
         var key = _Object$keys[_i];
         if (!NET_CONFIG.hasOwnProperty(key)) continue;

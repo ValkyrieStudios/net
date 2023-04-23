@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 var _constants = require("../constants");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
@@ -25,11 +25,11 @@ var Response = /*#__PURE__*/_createClass(function Response(code) {
     code: code,
     msg: msg
   } : undefined;
-  this.headers = _is["default"].Object(headers) ? headers : {};
+  this.headers = (0, _is["default"])(headers) ? headers : {};
   this.data = {};
   if (data) {
     try {
-      if (_is["default"].Object(options) && options.responseType === _constants.RESPONSE_TYPES.JSON || (headers['content-type'] || '').indexOf('application/json') > -1) {
+      if ((0, _is["default"])(options) && options.responseType === _constants.RESPONSE_TYPES.JSON || (headers['content-type'] || '').indexOf('application/json') > -1) {
         this.data = JSON.parse(data);
       } else {
         this.data = data;

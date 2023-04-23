@@ -5,7 +5,10 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/function/is"));
+var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
+var _is3 = _interopRequireDefault(require("@valkyriestudios/utils/array/is"));
+var _isIntegerAbove = _interopRequireDefault(require("@valkyriestudios/utils/number/isIntegerAbove"));
 var _constants = require("../constants");
 var _Response = _interopRequireDefault(require("../blueprints/Response"));
 var _Scenario2 = _interopRequireDefault(require("../blueprints/Scenario"));
@@ -85,7 +88,7 @@ var NodeScenario = /*#__PURE__*/function (_Scenario) {
           stream.on('data', function (chunk) {
             loaded += chunk.length;
             data.push(chunk);
-            if (_is["default"].Function(options.onProgress)) {
+            if ((0, _is["default"])(options.onProgress)) {
               options.onProgress({
                 total: total,
                 loaded: loaded
@@ -113,7 +116,7 @@ var NodeScenario = /*#__PURE__*/function (_Scenario) {
         req.on('error', reject);
 
         //  Timeout
-        if (_is["default"].IntegerAbove(options.timeout, 0)) {
+        if ((0, _isIntegerAbove["default"])(options.timeout, 0)) {
           timer = setTimeout(function () {
             aborted = true;
             req.abort();
@@ -126,7 +129,7 @@ var NodeScenario = /*#__PURE__*/function (_Scenario) {
           var data = options.data;
 
           //  Stream
-          if (_is["default"].Object(options.data) && _is["default"].Function(options.data)) {
+          if ((0, _is2["default"])(options.data) && (0, _is["default"])(options.data)) {
             data.pipe(req);
             return;
           }
@@ -134,7 +137,7 @@ var NodeScenario = /*#__PURE__*/function (_Scenario) {
           //  Apply some conversion
           if (Object.prototype.toString.call(data) === '[object ArrayBuffer]') {
             data = new Buffer(new Uint8Array(data));
-          } else if (_is["default"].Array(data) || _is["default"].Object(data)) {
+          } else if ((0, _is3["default"])(data) || (0, _is2["default"])(data)) {
             data = new Buffer(JSON.stringify(data), 'utf-8');
           } else {
             data = new Buffer("".concat(data), 'utf-8');

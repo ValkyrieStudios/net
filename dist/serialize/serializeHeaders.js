@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = serializeHeaders;
-var _is = _interopRequireDefault(require("@valkyriestudios/utils/is"));
+var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 //  Combine option headers and default headers
 //
@@ -13,7 +13,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 function serializeHeaders(options, NET_CONFIG) {
   return Object.assign({},
   //  Default headers
-  _is["default"].Object(NET_CONFIG) && _is["default"].Object(NET_CONFIG.headers) ? NET_CONFIG.headers : {},
+  (0, _is["default"])(NET_CONFIG) && (0, _is["default"])(NET_CONFIG.headers) ? NET_CONFIG.headers : {},
   //  Passed option headers
-  _is["default"].Object(options) && _is["default"].Object(options.headers) ? options.headers : {});
+  (0, _is["default"])(options) && (0, _is["default"])(options.headers) ? options.headers : {});
 }
