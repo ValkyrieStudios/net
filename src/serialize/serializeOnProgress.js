@@ -1,11 +1,12 @@
 'use strict';
 
-import Is from '@valkyriestudios/utils/is';
+import isFunction   from '@valkyriestudios/utils/function/is';
+import isObject     from '@valkyriestudios/utils/object/is';
 
 export default function serializeOnProgress (options, NET_CONFIG) {
-    const onProgress = Is.Object(options) && options.hasOwnProperty('onProgress')
+    const onProgress = isObject(options) && options.hasOwnProperty('onProgress')
         ? options.onProgress
         : NET_CONFIG.onProgress;
 
-    return Is.Function(onProgress) ? onProgress : false;
+    return isFunction(onProgress) ? onProgress : false;
 }

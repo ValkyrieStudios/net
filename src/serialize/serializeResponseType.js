@@ -1,6 +1,7 @@
 'use strict';
 
-import Is               from '@valkyriestudios/utils/is';
+import isObject         from '@valkyriestudios/utils/object/is';
+import isString         from '@valkyriestudios/utils/string/is';
 import {RESPONSE_TYPES} from '../constants';
 
 const map = Object.keys(RESPONSE_TYPES).reduce((acc, key) => {
@@ -9,11 +10,11 @@ const map = Object.keys(RESPONSE_TYPES).reduce((acc, key) => {
 }, {});
 
 export default function serializeResponseType (options, NET_CONFIG) {
-    const responseType = Is.Object(options) && options.hasOwnProperty('responseType')
+    const responseType = isObject(options) && options.hasOwnProperty('responseType')
         ? options.responseType
         : NET_CONFIG.responseType;
 
-    if (!Is.String(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
+    if (!isString(responseType)) throw new TypeError('Net:serializeResponseType expects responseType to be a string');
 
     return map[responseType] || '';
 }

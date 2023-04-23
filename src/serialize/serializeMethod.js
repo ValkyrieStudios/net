@@ -1,6 +1,6 @@
 'use strict';
 
-import Is           from '@valkyriestudios/utils/is';
+import isNeString   from '@valkyriestudios/utils/string/isNotEmpty';
 import {METHOD}     from '../constants';
 
 const METHOD_VALUES = Object.freeze(Object.keys(METHOD).reduce((acc, key) => {
@@ -9,7 +9,7 @@ const METHOD_VALUES = Object.freeze(Object.keys(METHOD).reduce((acc, key) => {
 }, Object.create(null)));
 
 export default function serializeMethod (method, NET_CONFIG) {
-    const serialized_method = Is.NotEmptyString(method)
+    const serialized_method = isNeString(method)
         ? method.trim()
         : NET_CONFIG.method;
     if (!METHOD_VALUES[serialized_method]) throw new TypeError('NET:serializeMethod an unknown HTTP verb was passed as method');

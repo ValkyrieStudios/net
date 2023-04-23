@@ -1,11 +1,12 @@
 'use strict';
 
-import Is from '@valkyriestudios/utils/is';
+import isObject     from '@valkyriestudios/utils/object/is';
+import isIntAbove   from '@valkyriestudios/utils/number/isIntegerAbove';
 
 export default function serializeTimeout (options, NET_CONFIG) {
-    const timeout = Is.Object(options) && options.hasOwnProperty('timeout')
+    const timeout = isObject(options) && options.hasOwnProperty('timeout')
         ? options.timeout
         : NET_CONFIG.timeout;
 
-    return Is.IntegerAbove(timeout, 0) ? timeout : false;
+    return isIntAbove(timeout, 0) ? timeout : false;
 }

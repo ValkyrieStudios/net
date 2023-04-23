@@ -1,7 +1,7 @@
 'use strict';
 
-import Is   from '@valkyriestudios/utils/is';
-import noop from '@valkyriestudios/utils/function/noop';
+import isObject from '@valkyriestudios/utils/object/is';
+import noop     from '@valkyriestudios/utils/function/noop';
 
 import {METHOD}                 from './constants';
 
@@ -53,7 +53,7 @@ function serialize (url, method, options = {}, data = false) {
 export default class Net {
 
     static configure (options = {}) {
-        if (!Is.Object(options)) throw new TypeError('Net:configure expects an Object');
+        if (!isObject(options)) throw new TypeError('Net:configure expects an Object');
 
         for (const key of Object.keys(options)) {
             if (!NET_CONFIG.hasOwnProperty(key)) continue;

@@ -1,6 +1,6 @@
 'use strict';
 
-import Is from '@valkyriestudios/utils/is';
+import isObject from '@valkyriestudios/utils/object/is';
 
 //  Combine option headers and default headers
 //
@@ -9,11 +9,11 @@ import Is from '@valkyriestudios/utils/is';
 export default function serializeHeaders (options, NET_CONFIG) {
     return Object.assign({},
         //  Default headers
-        Is.Object(NET_CONFIG) && Is.Object(NET_CONFIG.headers)
+        isObject(NET_CONFIG) && isObject(NET_CONFIG.headers)
             ? NET_CONFIG.headers
             : {},
         //  Passed option headers
-        Is.Object(options) && Is.Object(options.headers)
+        isObject(options) && isObject(options.headers)
             ? options.headers
             : {}
     );

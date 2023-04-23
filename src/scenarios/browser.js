@@ -1,6 +1,12 @@
 'use strict';
 
-import Is                       from '@valkyriestudios/utils/is';
+import isFunction               from '@valkyriestudios/utils/function/is';
+import isObject                 from '@valkyriestudios/utils/object/is';
+import isNeObject               from '@valkyriestudios/utils/object/isNotEmpty';
+import isArray                  from '@valkyriestudios/utils/array/is';
+import isNeArray                from '@valkyriestudios/utils/array/isNotEmpty';
+import isNeString               from '@valkyriestudios/utils/string/isNotEmpty';
+import isIntAbove               from '@valkyriestudios/utils/number/isIntegerAbove';
 import Scenario                 from '../blueprints/Scenario';
 import Response                 from '../blueprints/Response';
 import {METHODS_ALLOWED_BODY}   from '../constants';
@@ -8,12 +14,12 @@ import {METHODS_ALLOWED_BODY}   from '../constants';
 function getResponseHeaders (req) {
     return req.getAllResponseHeaders().split('\n').reduce((acc, header) => {
         header = header.split(':') || [];
-        if (!Is.NotEmptyArray(header)) return acc;
+        if (!isNeArray(header)) return acc;
 
         const key = header.shift().trim().toLowerCase();
         const val = header.join(':').trim();
 
-        if (!Is.NotEmptyString(key)) return acc;
+        if (!isNeString(key)) return acc;
 
         acc[key] = acc.hasOwnProperty(key)
             ? `${acc[key]}, ${val}`
@@ -36,13 +42,13 @@ export default class BrowserScenario extends Scenario {
             req.onerror = err => reject(err);
             req.onabort = err => reject(err);
 
-            if (Is.IntegerAbove(options.timeout)) {
+            if (isIntAbove(options.timeout)) {
                 req.ontimeout = err => reject(err);
                 req.timeout = options.timeout;
             }
 
             //  On Progress handler
-            if (Is.Function(options.onProgress)) {
+            if (isFunction(options.onProgress)) {
                 req.onprogress = options.onProgress;
             }
 
@@ -52,12 +58,12 @@ export default class BrowserScenario extends Scenario {
             }
 
             //  Apply response type
-            if (Is.NotEmptyString(options.responseType)) {
+            if (isNeString(options.responseType)) {
                 req.responseType = options.responseType;
             }
 
             //  Set headers
-            if (Is.NotEmptyObject(options.headers)) {
+            if (isNeObject(options.headers)) {
                 for (const header of Object.keys(options.headers)) {
                     req.setRequestHeader(header, options.headers[header]);
                 }
@@ -73,7 +79,9 @@ export default class BrowserScenario extends Scenario {
 
             //  Send request
             if (options.data && METHODS_ALLOWED_BODY[options.method]) {
-                req.send(Is.Object(options.data) || Is.Array(options.data) ? JSON.stringify(options.data) : options.data);
+                req.send(isObject(options.data) || isArray(options.data)
+                    ? JSON.stringify(options.data)
+                    : options.data);
             } else {
                 req.send();
             }

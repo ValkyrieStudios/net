@@ -1,6 +1,9 @@
 'use strict';
 
-import Is                       from '@valkyriestudios/utils/is';
+import isFunction               from '@valkyriestudios/utils/function/is';
+import isObject                 from '@valkyriestudios/utils/object/is';
+import isArray                  from '@valkyriestudios/utils/array/is';
+import isIntAbove               from '@valkyriestudios/utils/number/isIntegerAbove';
 import {METHODS_ALLOWED_BODY}   from '../constants';
 import Response                 from '../blueprints/Response';
 import Scenario                 from '../blueprints/Scenario';
@@ -60,7 +63,7 @@ export default class NodeScenario extends Scenario {
                     loaded += chunk.length;
                     data.push(chunk);
 
-                    if (Is.Function(options.onProgress)) {
+                    if (isFunction(options.onProgress)) {
                         options.onProgress({total, loaded});
                     }
                 });
@@ -87,7 +90,7 @@ export default class NodeScenario extends Scenario {
             req.on('error', reject);
 
             //  Timeout
-            if (Is.IntegerAbove(options.timeout, 0)) {
+            if (isIntAbove(options.timeout, 0)) {
                 timer = setTimeout(() => {
                     aborted = true;
                     req.abort();
@@ -100,7 +103,7 @@ export default class NodeScenario extends Scenario {
                 let data = options.data;
 
                 //  Stream
-                if (Is.Object(options.data) && Is.Function(options.data)) {
+                if (isObject(options.data) && isFunction(options.data)) {
                     data.pipe(req);
                     return;
                 }
@@ -108,7 +111,7 @@ export default class NodeScenario extends Scenario {
                 //  Apply some conversion
                 if (Object.prototype.toString.call(data) === '[object ArrayBuffer]') {
                     data = new Buffer(new Uint8Array(data));
-                } else if (Is.Array(data) || Is.Object(data)) {
+                } else if (isArray(data) || isObject(data)) {
                     data = new Buffer(JSON.stringify(data), 'utf-8');
                 } else {
                     data = new Buffer(`${data}`, 'utf-8');

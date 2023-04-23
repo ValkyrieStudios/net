@@ -1,9 +1,9 @@
 'use strict';
 
-import Is from '@valkyriestudios/utils/is';
+import isObject from '@valkyriestudios/utils/object/is';
 
 export default function serializeWithCredentials (options, NET_CONFIG) {
-    return Is.Object(options) && options.hasOwnProperty('withCredentials')
+    return isObject(options) && options.hasOwnProperty('withCredentials')
         ? options.withCredentials
         : NET_CONFIG.withCredentials;
 }
