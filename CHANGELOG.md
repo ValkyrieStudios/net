@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic
 Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Improved
+- Dep: Upgrade @valkyriestudios/utils to 6.1.0
+- Dep: Upgrade eslint to 8.39.0
+- Reduce eventual bundle size for package
+
 ## [1.8.1] - 2023-04-01
 ### Fixed
 - helper:serializeResponseType: No longer allowed an empty string to be a response type
