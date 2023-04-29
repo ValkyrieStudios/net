@@ -101,4 +101,4 @@ The headers that were found on the response
 An object containing the status of a network call. Contains the code and statusmessage
 
 ## Contributors
-- Peter Vermeulen : [Valkyrie Studios](www.valkyriestudios.be)
+- [Peter Vermeulen](mailto:contact@valkyriestudios.be)
