@@ -1,14 +1,14 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: !0
 });
 exports["default"] = serializeMethod;
 var _isNotEmpty = _interopRequireDefault(require("@valkyriestudios/utils/string/isNotEmpty"));
 var _constants = require("../constants");
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 var METHOD_VALUES = Object.freeze(Object.keys(_constants.METHOD).reduce(function (acc, key) {
-  acc[_constants.METHOD[key]] = true;
+  acc[_constants.METHOD[key]] = !0;
   return acc;
 }, Object.create(null)));
 function serializeMethod(method, NET_CONFIG) {

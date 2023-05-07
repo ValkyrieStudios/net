@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: !0
 });
 exports["default"] = void 0;
 var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
@@ -16,25 +16,22 @@ var _serializeOnProgress = _interopRequireDefault(require("./serialize/serialize
 var _serializeMethod = _interopRequireDefault(require("./serialize/serializeMethod"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }); } else { obj[key] = value; } return obj; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1; descriptor.configurable = !0; if ("value" in descriptor) descriptor.writable = !0; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: !1 }); return Constructor; }
 function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
 function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
-//  NET Library configuration
 var NET_CONFIG = Object.seal({
-  base: false,
-  headers: false,
-  method: false,
-  onProgress: false,
-  params: false,
-  timeout: false,
-  withCredentials: false,
+  base: !1,
+  headers: !1,
+  method: !1,
+  onProgress: !1,
+  params: !1,
+  timeout: !1,
+  withCredentials: !1,
   responseType: ''
 });
-
-//  Determine the scenario to run in
 var Scenario = null;
 if (typeof window !== 'undefined') {
   Scenario = require('./scenarios/browser')["default"];
@@ -43,11 +40,9 @@ if (typeof window !== 'undefined') {
 } else {
   Scenario = require('./scenarios/node')["default"];
 }
-
-//  Serialize call parameters into an understandable format for every scenario
 function serialize(url, method) {
   var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-  var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
+  var data = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : !1;
   return Object.seal({
     url: (0, _serializeURL["default"])(url, options, NET_CONFIG),
     headers: (0, _serializeHeaders["default"])(options, NET_CONFIG),
@@ -59,7 +54,7 @@ function serialize(url, method) {
     data: data
   });
 }
-var Net = /*#__PURE__*/function () {
+var Net = function () {
   function Net() {
     _classCallCheck(this, Net);
   }
@@ -121,7 +116,6 @@ var Net = /*#__PURE__*/function () {
     value: function request(url) {
       var _METHOD$GET$METHOD$PO;
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      //  Normalize method
       var method = "".concat(options.method.slice(0, 1).toUpperCase()).concat(options.method.slice(1));
       return ((_METHOD$GET$METHOD$PO = {}, _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.GET, Net.get), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.POST, Net.post), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PUT, Net.put), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PATCH, Net.patch), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.DELETE, Net["delete"]), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.HEAD, Net.head), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.OPTIONS, Net.options), _METHOD$GET$METHOD$PO)[method] || _noop["default"])(url, options);
     }

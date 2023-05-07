@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: !0
 });
 exports["default"] = serializeURL;
 var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
@@ -11,15 +11,10 @@ var _isNotEmpty2 = _interopRequireDefault(require("@valkyriestudios/utils/string
 var _join = _interopRequireDefault(require("@valkyriestudios/utils/array/join"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 function serializeURL(url, options, NET_CONFIG) {
-  //  Check for possibly configured base domain (e.g: https://www.google.com)
   var base = (0, _is["default"])(options) && options.hasOwnProperty('base') ? options.base : NET_CONFIG.base;
-
-  //  Build base url
   var serialized_url = (0, _join["default"])([base, url], {
     delim: ''
   });
-
-  //  Check for possibly configured querystring parameters
   var params = (0, _is["default"])(options) && options.hasOwnProperty('params') ? options.params : NET_CONFIG.params;
   if ((0, _is2["default"])(params)) {
     params = params.trim();
@@ -30,10 +25,8 @@ function serializeURL(url, options, NET_CONFIG) {
       return acc;
     }, []).join('&');
   } else {
-    params = false;
+    params = !1;
   }
-
-  //  If params is filled in after serialization
   if (params) serialized_url = "".concat(serialized_url, "?").concat(params);
   return serialized_url;
 }

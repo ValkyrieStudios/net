@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: !0
 });
 exports["default"] = serializeWithCredentials;
 var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
