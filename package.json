@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "./node_modules/.bin/eslint ./src",
-    "build": "gulp && npm run lint"
+    "build": "npx babel src --out-dir ./dist && npm run lint"
   },
   "repository": {
     "type": "git",
@@ -18,14 +18,18 @@
   },
   "homepage": "https://github.com/ValkyrieStudios/net#readme",
   "dependencies": {
-    "@valkyriestudios/utils": "^6.2.0"
+    "@valkyriestudios/utils": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.21.5",
-    "@babel/plugin-proposal-class-properties": "^7.18.6",
+    "@babel/cli": "^7.21.5",
+    "@babel/core": "^7.21.8",
     "@babel/preset-env": "^7.21.5",
-    "eslint": "^8.39.0",
-    "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0"
+    "@babel/register": "^7.21.0",
+    "babel-plugin-check-es2015-constants": "^6.22.0",
+    "babel-plugin-transform-member-expression-literals": "^6.9.4",
+    "babel-plugin-transform-minify-booleans": "^6.9.4",
+    "babel-plugin-transform-property-literals": "^6.9.4",
+    "babel-plugin-transform-remove-console": "^6.9.4",
+    "eslint": "^8.40.0"
   }
 }
