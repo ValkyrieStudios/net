@@ -1,6 +1,6 @@
 'use strict';
 
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 Object.defineProperty(exports, "__esModule", {
   value: !0
 });
@@ -8,9 +8,7 @@ exports["default"] = void 0;
 var _is = _interopRequireDefault(require("@valkyriestudios/utils/function/is"));
 var _is2 = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
 var _isNotEmpty = _interopRequireDefault(require("@valkyriestudios/utils/object/isNotEmpty"));
-var _is3 = _interopRequireDefault(require("@valkyriestudios/utils/array/is"));
-var _isNotEmpty2 = _interopRequireDefault(require("@valkyriestudios/utils/array/isNotEmpty"));
-var _isNotEmpty3 = _interopRequireDefault(require("@valkyriestudios/utils/string/isNotEmpty"));
+var _isNotEmpty2 = _interopRequireDefault(require("@valkyriestudios/utils/string/isNotEmpty"));
 var _isIntegerAbove = _interopRequireDefault(require("@valkyriestudios/utils/number/isIntegerAbove"));
 var _Scenario2 = _interopRequireDefault(require("../blueprints/Scenario"));
 var _Response = _interopRequireDefault(require("../blueprints/Response"));
@@ -19,8 +17,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1; descriptor.configurable = !0; if ("value" in descriptor) descriptor.writable = !0; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: !1 }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 function _get() { if (typeof Reflect !== "undefined" && Reflect.get) { _get = Reflect.get.bind(); } else { _get = function _get(target, property, receiver) { var base = _superPropBase(target, property); if (!base) return; var desc = Object.getOwnPropertyDescriptor(base, property); if (desc.get) { return desc.get.call(arguments.length < 3 ? target : receiver); } return desc.value; }; } return _get.apply(this, arguments); }
 function _superPropBase(object, property) { while (!Object.prototype.hasOwnProperty.call(object, property)) { object = _getPrototypeOf(object); if (object === null) break; } return object; }
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: !0, configurable: !0 } }); Object.defineProperty(subClass, "prototype", { writable: !1 }); if (superClass) _setPrototypeOf(subClass, superClass); }
@@ -33,15 +31,15 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function getResponseHeaders(req) {
   return req.getAllResponseHeaders().split('\n').reduce(function (acc, header) {
     header = header.split(':') || [];
-    if (!(0, _isNotEmpty2["default"])(header)) return acc;
+    if (!Array.isArray(header) || header.length === 0) return acc;
     var key = header.shift().trim().toLowerCase();
     var val = header.join(':').trim();
-    if (!(0, _isNotEmpty3["default"])(key)) return acc;
+    if (!(0, _isNotEmpty2["default"])(key)) return acc;
     acc[key] = acc.hasOwnProperty(key) ? "".concat(acc[key], ", ").concat(val) : val;
     return acc;
   }, {});
 }
-var BrowserScenario = function (_Scenario) {
+var BrowserScenario = exports["default"] = function (_Scenario) {
   _inherits(BrowserScenario, _Scenario);
   var _super = _createSuper(BrowserScenario);
   function BrowserScenario() {
@@ -72,7 +70,7 @@ var BrowserScenario = function (_Scenario) {
         if (options.withCredentials) {
           req.withCredentials = options.withCredentials;
         }
-        if ((0, _isNotEmpty3["default"])(options.responseType)) {
+        if ((0, _isNotEmpty2["default"])(options.responseType)) {
           req.responseType = options.responseType;
         }
         if ((0, _isNotEmpty["default"])(options.headers)) {
@@ -87,7 +85,7 @@ var BrowserScenario = function (_Scenario) {
           return resolve(new _Response["default"](req.status, req.statusText, req.response, getResponseHeaders(req), options));
         };
         if (options.data && _constants.METHODS_ALLOWED_BODY[options.method]) {
-          req.send((0, _is2["default"])(options.data) || (0, _is3["default"])(options.data) ? JSON.stringify(options.data) : options.data);
+          req.send((0, _is2["default"])(options.data) || Array.isArray(options.data) ? JSON.stringify(options.data) : options.data);
         } else {
           req.send();
         }
@@ -96,4 +94,3 @@ var BrowserScenario = function (_Scenario) {
   }]);
   return BrowserScenario;
 }(_Scenario2["default"]);
-exports["default"] = BrowserScenario;

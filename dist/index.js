@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 var _is = _interopRequireDefault(require("@valkyriestudios/utils/object/is"));
-var _noop = _interopRequireDefault(require("@valkyriestudios/utils/function/noop"));
 var _constants = require("./constants");
 var _serializeResponseType = _interopRequireDefault(require("./serialize/serializeResponseType"));
 var _serializeHeaders = _interopRequireDefault(require("./serialize/serializeHeaders"));
@@ -15,13 +14,12 @@ var _serializeTimeout = _interopRequireDefault(require("./serialize/serializeTim
 var _serializeOnProgress = _interopRequireDefault(require("./serialize/serializeOnProgress"));
 var _serializeMethod = _interopRequireDefault(require("./serialize/serializeMethod"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }); } else { obj[key] = value; } return obj; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || !1; descriptor.configurable = !0; if ("value" in descriptor) descriptor.writable = !0; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: !1 }); return Constructor; }
-function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
-function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var NET_CONFIG = Object.seal({
   base: !1,
   headers: !1,
@@ -54,7 +52,7 @@ function serialize(url, method) {
     data: data
   });
 }
-var Net = function () {
+var Net = exports["default"] = function () {
   function Net() {
     _classCallCheck(this, Net);
   }
@@ -114,12 +112,27 @@ var Net = function () {
   }, {
     key: "request",
     value: function request(url) {
-      var _METHOD$GET$METHOD$PO;
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
       var method = "".concat(options.method.slice(0, 1).toUpperCase()).concat(options.method.slice(1));
-      return ((_METHOD$GET$METHOD$PO = {}, _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.GET, Net.get), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.POST, Net.post), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PUT, Net.put), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.PATCH, Net.patch), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.DELETE, Net["delete"]), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.HEAD, Net.head), _defineProperty(_METHOD$GET$METHOD$PO, _constants.METHOD.OPTIONS, Net.options), _METHOD$GET$METHOD$PO)[method] || _noop["default"])(url, options);
+      switch (method) {
+        case _constants.METHOD.GET:
+          return Net.get(url, options);
+        case _constants.METHOD.POST:
+          return Net.post(url, options);
+        case _constants.METHOD.PUT:
+          return Net.put(url, options);
+        case _constants.METHOD.PATCH:
+          return Net.patch(url, options);
+        case _constants.METHOD.DELETE:
+          return Net["delete"](url, options);
+        case _constants.METHOD.HEAD:
+          return Net.head(url, options);
+        case _constants.METHOD.OPTIONS:
+          return Net.options(url, options);
+        default:
+          throw new Error("Unknown HTTP verb for request to ".concat(url));
+      }
     }
   }]);
   return Net;
 }();
-exports["default"] = Net;
