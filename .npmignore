@@ -14,3 +14,4 @@ src/
 test/
 gulpfile.js
 yarn.lock
+CHANGELOG.md
