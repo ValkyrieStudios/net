@@ -1,5 +1,6 @@
 ## @valkyriestudios/net
 
+[![codeql](https://github.com/ValkyrieStudios/net/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ValkyrieStudios/net/actions/workflows/github-code-scanning/codeql)
 [![npm](https://img.shields.io/npm/v/@valkyriestudios/net.svg)](https://www.npmjs.com/package/@valkyriestudios/net)
 [![npm](https://img.shields.io/npm/dm/@valkyriestudios/net.svg)](https://www.npmjs.com/package/@valkyriestudios/net)
 
