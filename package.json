@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/ValkyrieStudios/net#readme",
   "dependencies": {
-    "@valkyriestudios/utils": "^9.0.0"
+    "@valkyriestudios/utils": "^10.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.4",
