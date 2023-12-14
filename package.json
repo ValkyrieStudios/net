@@ -25,10 +25,7 @@
     "@babel/core": "^7.23.6",
     "@babel/preset-env": "^7.23.6",
     "@babel/register": "^7.22.15",
-    "babel-plugin-check-es2015-constants": "^6.22.0",
-    "babel-plugin-transform-member-expression-literals": "^6.9.4",
     "babel-plugin-transform-minify-booleans": "^6.9.4",
-    "babel-plugin-transform-property-literals": "^6.9.4",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "eslint": "^8.55.0"
   }

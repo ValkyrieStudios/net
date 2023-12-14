@@ -14,6 +14,11 @@ Versioning](https://semver.org/spec/v2.0.0.html).
 - Dev Dep: Upgrade @babel/register to 7.22.15
 - Dev Dep: Upgrade eslint to 8.55.0
 
+### Removed
+- Dev Dep: babel-plugin-check-es2015-constants
+- Dev Dep: babel-plugin-transform-member-expression-literals
+- Dev Dep: babel-plugin-transform-property-literals
+
 ## [1.11.0] - 2023-05-07
 ### Added
 - Dep: @babel/cli
