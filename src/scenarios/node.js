@@ -2,7 +2,6 @@
 
 import isFunction               from '@valkyriestudios/utils/function/is';
 import isObject                 from '@valkyriestudios/utils/object/is';
-import isArray                  from '@valkyriestudios/utils/array/is';
 import isIntAbove               from '@valkyriestudios/utils/number/isIntegerAbove';
 import {METHODS_ALLOWED_BODY}   from '../constants';
 import Response                 from '../blueprints/Response';
@@ -111,7 +110,7 @@ export default class NodeScenario extends Scenario {
                 //  Apply some conversion
                 if (Object.prototype.toString.call(data) === '[object ArrayBuffer]') {
                     data = new Buffer(new Uint8Array(data));
-                } else if (isArray(data) || isObject(data)) {
+                } else if (Array.isArray(data) || isObject(data)) {
                     data = new Buffer(JSON.stringify(data), 'utf-8');
                 } else {
                     data = new Buffer(`${data}`, 'utf-8');

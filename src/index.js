@@ -1,10 +1,7 @@
 'use strict';
 
-import isObject from '@valkyriestudios/utils/object/is';
-import noop     from '@valkyriestudios/utils/function/noop';
-
+import isObject                 from '@valkyriestudios/utils/object/is';
 import {METHOD}                 from './constants';
-
 import serializeResponseType    from './serialize/serializeResponseType';
 import serializeHeaders         from './serialize/serializeHeaders';
 import serializeURL             from './serialize/serializeURL';
@@ -93,15 +90,24 @@ export default class Net {
         //  Normalize method
         const method = `${options.method.slice(0, 1).toUpperCase()}${options.method.slice(1)}`;
 
-        return ({
-            [METHOD.GET]        : Net.get,
-            [METHOD.POST]       : Net.post,
-            [METHOD.PUT]        : Net.put,
-            [METHOD.PATCH]      : Net.patch,
-            [METHOD.DELETE]     : Net.delete,
-            [METHOD.HEAD]       : Net.head,
-            [METHOD.OPTIONS]    : Net.options,
-        }[method] || noop)(url, options);
+        switch (method) {
+            case METHOD.GET:
+                return Net.get(url, options);
+            case METHOD.POST:
+                return Net.post(url, options);
+            case METHOD.PUT:
+                return Net.put(url, options);
+            case METHOD.PATCH:
+                return Net.patch(url, options);
+            case METHOD.DELETE:
+                return Net.delete(url, options);
+            case METHOD.HEAD:
+                return Net.head(url, options);
+            case METHOD.OPTIONS:
+                return Net.options(url, options);
+            default:
+                throw new Error(`Unknown HTTP verb for request to ${url}`);
+        }
     }
 
 }

@@ -3,8 +3,6 @@
 import isFunction               from '@valkyriestudios/utils/function/is';
 import isObject                 from '@valkyriestudios/utils/object/is';
 import isNeObject               from '@valkyriestudios/utils/object/isNotEmpty';
-import isArray                  from '@valkyriestudios/utils/array/is';
-import isNeArray                from '@valkyriestudios/utils/array/isNotEmpty';
 import isNeString               from '@valkyriestudios/utils/string/isNotEmpty';
 import isIntAbove               from '@valkyriestudios/utils/number/isIntegerAbove';
 import Scenario                 from '../blueprints/Scenario';
@@ -14,7 +12,7 @@ import {METHODS_ALLOWED_BODY}   from '../constants';
 function getResponseHeaders (req) {
     return req.getAllResponseHeaders().split('\n').reduce((acc, header) => {
         header = header.split(':') || [];
-        if (!isNeArray(header)) return acc;
+        if (!Array.isArray(header) || header.length === 0) return acc;
 
         const key = header.shift().trim().toLowerCase();
         const val = header.join(':').trim();
@@ -79,7 +77,7 @@ export default class BrowserScenario extends Scenario {
 
             //  Send request
             if (options.data && METHODS_ALLOWED_BODY[options.method]) {
-                req.send(isObject(options.data) || isArray(options.data)
+                req.send(isObject(options.data) || Array.isArray(options.data)
                     ? JSON.stringify(options.data)
                     : options.data);
             } else {
