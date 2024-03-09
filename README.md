@@ -1,3 +1,5 @@
+##### !!!Take Note: This library is in maintenance mode - Since its inception Fetch has become more and more the accepted standard!!!
+
 ## @valkyriestudios/net
 
 [![codeql](https://github.com/ValkyrieStudios/net/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ValkyrieStudios/net/actions/workflows/github-code-scanning/codeql)
